@@ -11,5 +11,8 @@ router.get('/about',function(req,res,next){
 router.get('/contact',function(req,res,next){
 	res.render('contact', { title: 'Express', path: req.path });
 });
+router.get('/photos',function(req,res,next){
+	res.send("This page is under construction");
+});
 
 module.exports = router;

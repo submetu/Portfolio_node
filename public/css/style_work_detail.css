@@ -25,7 +25,9 @@
 	margin:10% auto;
 	width:30%;
 }
-
+.prettyprint{
+	margin :5% 0;
+}
 
 
 @media screen and (min-width:200px) and (max-width:320px){
