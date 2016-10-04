@@ -3,5 +3,7 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+  #main-content
+      body
+        include ./partials/_nav
+        block content
