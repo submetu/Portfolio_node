@@ -6,10 +6,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express',path:req.path });
 });
 router.get('/about',function(req,res,next){
-	res.render('index', { title: 'Express', path: req.path });
+	res.render('about', { title: 'Express', path: req.path });
 });
 router.get('/contact',function(req,res,next){
-	res.render('index', { title: 'Express', path: req.path });
+	res.render('contact', { title: 'Express', path: req.path });
 });
 
 module.exports = router;

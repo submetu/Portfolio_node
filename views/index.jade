@@ -1,5 +1,55 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .home-main
+    .container-fluid
+      // INTRODUCTION ADDED BY JQUERY HERE
+      a(href='#recent-work')
+        img(src='img/down-arrow.svg')
+  #recent-work.recent-work
+    h1 Recent Work
+    .recent-work-row
+      .view.view-tenth
+        img(src='img/treehouse_search.png')
+        .mask.mask-1
+        .mask.mask-2
+        .content
+          h2 Treehouse User Search
+          p Node.Js
+          a.info(href='#') Read More
+      .view.view-tenth
+        img(src='img/movie_search.png')
+        .mask.mask-1
+        .mask.mask-2
+        .content
+          h2 IMDb Movie Search
+          p JavaScript jQuery AJAX
+          a.info(href='#') Read More
+      .view.view-tenth
+        img(src='img/tic-tac-toe.png')
+        .mask.mask-1
+        .mask.mask-2
+        .content
+          h2 Tic-Tac-Toe
+          p JavaScript jQuery
+          a.info(href='#') Read More
+    div
+      a#view-more(href='/work')
+        span View more
+        img(src='img/skip.svg')
+    .get-in-touch
+      a(href='#work-with-me')
+        p Get in touch
+        img(src='img/down-arrow_black.svg')
+  #work-with-me.work-with-me
+    h1 Give working with me a try
+    h5
+      a(href='mailto:subhan@example.com') subhan@example.com
+    a(href='mailto:subhan@example.com')
+      img(src='img/clipart-email-icon-white-on-black-9YBPv3-clipart.png')
+  script(src='js/jquery-3.1.0.min.js')
+  script(src='jquery_plugins/jquery.lettering.js')
+  script(src='jquery_plugins/jquery.textillate.js')
+  script(src='js/bootstrap.min.js')
+  script(src='js/app.js')
+

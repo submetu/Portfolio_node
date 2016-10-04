@@ -1,0 +1,66 @@
+extends layout
+
+block content
+  .about-top
+    .container-fluid
+  .about-canvas
+    h1
+      strong About Me
+    .container.about-main
+      .col-sm-3.col-xs-12
+        img#myimg.img-responsive(src='img/myimg.jpg', alt='Subhan Naeem')
+      .col-sm-9.col-xs-12
+        p I'm an aspiring web programmer and designer. I have a degree in Mechanical Engineering. In my spare time I like to play around with PLC's and robotics. As far as web development is concerned, I have ample amounts of experience in Front-end and   Back-end programming. I can write industry standard 
+          strong
+            em responsive web apps using various libraries and frameworks.
+        br
+        br
+      .col-xs-12
+        p Clients approach me when they need one or few of the following skills
+        ul
+          li Front-end
+          ul
+            li HTML5
+            li CSS
+            li JavaScript
+            ul
+              li jQuery
+              li AJAX
+              li AngularJS
+              li Bootstrap
+        ul
+          li Back-end
+          ul
+            li PHP
+            li NODE.js
+            li mySQL
+            li MongoDB
+      .col-xs-12
+        br
+        p
+        | I am a relatively new web developer, however, that makes me an even better candidate for producing modern web apps that use the latest technologies. With a solid understanding of basics, I immediately moved on to using modern frameworks, libraries and coding techniques. The work I provide is of the highest quality and strictly follows the criteria provided by the client. All my web apps focus on multi-browser compatibility, standard-compliance and client-side performance. Regardless of functionality, all of them are fully responsive on all screen sizes including desktop, tablet and mobile   screens.
+      .col-xs-12
+        br
+        h2 Skills
+        h3#front-end Front-end
+        ul.logos
+          li
+            img.img-responsive(src='svg/HTML5_logo_and_wordmark.svg')
+          li
+            img.img-responsive(src='svg/avaScript_logo_2.svg')
+          li
+            img.img-responsive(src='svg/jQurery.gif')
+          li#css
+            img.img-responsive(src='svg/css3new.svg')
+        h3#front-end Back-end
+        ul.logos
+          li(style='width:15%')
+            img.img-responsive(src='svg/nodejs-icon.svg')
+          li(style='width:25%')
+            img.img-responsive(src='svg/phplogo.png')
+          li(style='width:18%')
+            img.img-responsive(src='svg/sql.svg')
+          li(style='width:35%;margin-bottom:4%')
+            img.img-responsive(src='svg/MongoDB.png')
+  script(src='js/jquery-3.1.0.min.js')
+  script(src='js/bootstrap.min.js')

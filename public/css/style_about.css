@@ -13,7 +13,6 @@ html,body{
     }
     #footer{
       position:absolute;
-       bottom:0;
        width:100%;
        height:60px;   /* Height of the footer */
     }
@@ -113,6 +112,7 @@ html,body{
         font-size:.6em;
     }
     .about-canvas{
+        box-shadow: none;
         background-color:#f9f9f9;
         width:100%;
         height: 100%;
@@ -129,6 +129,7 @@ html,body{
         font-size:1.7em;
      }
     .about-canvas{
+        box-shadow: none;
         background-color:#f9f9f9;
         width:100%;
         height: 100%;
@@ -145,6 +146,7 @@ html,body{
 }
 @media screen and (min-width:481px) and (max-width:768px){
     .about-canvas{
+        box-shadow: none;
         background-color:#f9f9f9;
         width:100%;
         height: 100%;
