@@ -1,0 +1,163 @@
+ @import url(http://fonts.googleapis.com/css?family=Varela+Round);
+html,body{
+        margin:0;
+        padding:0;
+        height:100%;
+    }
+    #main-content{
+        min-height:100%;
+        position:relative;
+    }
+    #body {
+       padding-bottom:60px;   /* Height of the footer */
+    }
+    #footer{
+      position:absolute;
+       bottom:0;
+       width:100%;
+       height:60px;   /* Height of the footer */
+    }
+
+.body{
+    font-size: 1em;
+}
+.about-top{
+    height:350px;
+    width:100%;
+    background: 
+                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url("../img/IMG_1503.jpeg") no-repeat center/cover;
+}
+
+.about-canvas{
+    background-color:#ededed;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+    width:70%;
+    height: 100%;
+    margin:7% auto 5%;
+    color: #666666 ;
+    line-height: 1.7;
+    
+}
+.about-canvas h1{
+    margin:auto;
+    text-align: center;
+    padding-top: 5%;
+    color:black;
+}
+.about-main{
+    width:90%;
+    padding:10% 0;
+    font-size:1em;
+    font-family: 'Varela Round', Helvetica, serif;
+}
+#myimg{
+    width:80%;
+    margin:0 auto 15% ;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    transition-duration: .3s;
+    
+}
+#myimg:hover{
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7), 0 6px 20px 0 rgba(0, 0, 0, 0.7);
+    border-radius: 0;
+    
+}
+.logos li{
+    list-style: none;
+    display: inline-block;
+    width:20%;
+    margin: 0; padding: 0;
+}
+
+.logos{
+    margin: 0 0 10% 0; padding: 0;
+    text-align: left;
+}
+
+#css{
+    width:17%;
+}
+#front-end{
+    margin-top:5%;
+}
+
+.social-media-icons{
+    text-align: center;!important
+    margin: 2% 0 5%;!important
+}
+
+/*DRY RULES*/
+.addDec{
+    text-decoration:underline;
+}
+.inheritColor{
+    color:inherit;
+}
+.center{
+    text-align: center;
+}
+/*MEDIA QUERIES*/
+@media screen and (min-width:200px) and (max-width:320px){
+     .about-canvas h1{
+        font-size:1.7em;
+     }
+    
+    .footer{
+        margin:auto;
+    }
+    .navbar .navbar-brand{
+        font-size:.6em;
+    }
+    .about-canvas{
+        background-color:#f9f9f9;
+        width:100%;
+        height: 100%;
+        margin:10% auto 0;
+        color: #666666 ;
+    }
+    about-top{
+        height:150px;
+    }
+   
+}
+@media screen and (min-width:321px) and (max-width:480px){
+    .about-canvas h1{
+        font-size:1.7em;
+     }
+    .about-canvas{
+        background-color:#f9f9f9;
+        width:100%;
+        height: 100%;
+        margin:5% auto 0;
+        color: #666666 ;
+    }
+    #myimg{
+        width:40%;      
+    }
+    .about-top{
+        height:150px;
+    }
+    
+}
+@media screen and (min-width:481px) and (max-width:768px){
+    .about-canvas{
+        background-color:#f9f9f9;
+        width:100%;
+        height: 100%;
+        margin:5% auto 0;
+        color: #666666 ;
+    }
+    #myimg{
+        width:40%;      
+    }
+    
+}
+@media screen and (min-width:768px) and (max-width:1024px){
+    #myimg{
+        width:100%;      
+    }
+}

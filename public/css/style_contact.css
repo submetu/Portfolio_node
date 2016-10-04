@@ -1,0 +1,131 @@
+
+html,body{
+        margin:0;
+        padding:0;
+        height:100%;
+
+    }
+    #main-content{
+        min-height:100%;
+        position:relative;
+    }
+    #body {
+       padding-bottom:60px;   /* Height of the footer */
+       color: #666666;
+    }
+    #footer{
+      position:absolute;
+       bottom:0;
+       width:100%;
+       height:60px;   /* Height of the footer */
+    }
+.contact-contact{
+        margin-top: 10%;
+    }
+.contact-contact h1{
+    font-weight: bold;
+}
+.contact-contact h4{
+    font-weight: bold;
+    margin-bottom:5%;
+}
+.body{
+    font-size: 1em;
+}
+.contact-main{
+    height:350px;
+    width:100%;
+    background: 
+                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url("../img/contact-img.jpg ") no-repeat center/cover;
+                text-align: center;
+}
+.contact-contact{
+    text-align: center;
+}
+.contact-contact h5{
+    margin-bottom:4%;
+}
+.contact-contact h4 a{
+    color:black;
+    transition-duration: .5s;
+}
+.contact-contact h4 a:hover{
+    color:#088A4B;
+}
+.contact-contact h4 a:visited{
+    color:black;
+}
+.contact-contact h3{
+        padding:0 5% 0;
+        font-size:1.3em;
+    }
+.social-media-icons{
+    text-align: center;
+    margin: 2% auto 5%;
+}
+
+/*DRY RULES*/
+.addDec{
+    text-decoration:underline;
+}
+.inheritColor{
+    color:inherit;
+}
+
+/*MEDIA QUERIES*/
+@media screen and (min-width:200px) and (max-width:320px){
+     
+    .contact-main{
+        height:150px;
+    }
+    .contact-contact h1{
+        font-size: 1.5em;
+    }
+    .contact-contact h5{
+        font-size: 0.8em;
+    }
+    .contact-contact h4{
+        font-size: 1.1em;
+    }
+    .contact-contact h3{
+        padding:0 5% 0;
+        margin-top:10%;
+        font-size: 0.8em;
+    }
+    .footer{
+        margin:auto;
+    }
+    .navbar .navbar-brand{
+        font-size:.6em;
+    }
+   
+}
+@media screen and (min-width:321px) and (max-width:480px){
+    
+    .contact-main{
+        height:150px;
+        width: 100%:
+    }
+    .contact-contact{
+        margin-top: 20%;
+    }
+    .contact-contact h1{
+        font-size: 1.5em;
+    }
+    .contact-contact h5{
+        font-size: .8em;
+    }
+    .contact-contact h4{
+        font-size: 1.1em;
+    }
+    .contact-contact h3{
+        margin-top:10%;
+        font-size: .8em;
+    }
+    
+}
+@media screen and (min-width:481px) and (max-width:768px){
+    
+    
+}

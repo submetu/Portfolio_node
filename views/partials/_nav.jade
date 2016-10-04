@@ -1,9 +1,9 @@
 nav.navbar.navbar-default
   .container-fluid
     .navbar-header
-      a(href='index.html')
-        img.navbar-brand(src='img/onlinelogomaker-090616-1909-7898.png')
-      a.navbar-brand(href='index.html') Subhan Naeem
+      a(href='/')
+        img.navbar-brand(src='/img/onlinelogomaker-090616-1909-7898.png')
+      a.navbar-brand(href='/') Subhan Naeem
       button.navbar-toggle.collapsed(data-toggle='collapse', data-target='#dropdown')
         span.icon-bar
         span.icon-bar
@@ -11,10 +11,19 @@ nav.navbar.navbar-default
     #dropdown.collapse.navbar-collapse.navbar-right
       ul.nav.navbar-nav
         li
-          a(href='work.html') Work
+          if path === '/work'
+            a(href='/work', style='color:black') Work
+          else
+            a(href='/work') Work
         li
           a(href='#') Photos
         li
-          a(href='about.html', style='color:black') About
+          if path === '/about'
+            a(href='/about', style='color:black') About
+          else
+            a(href='/about') About
         li
-          a(href='contact.html') Contact
+          if path === '/contact'
+            a(href='/contact', style='color:black') Contact
+          else
+            a(href='/contact') Contact

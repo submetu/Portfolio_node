@@ -1,0 +1,159 @@
+html,body{
+        margin:0;
+        padding:0;
+        height:100%;
+
+    }
+    #main-content{
+        min-height:100%;
+        position:relative;
+    }
+    #body {
+       padding-bottom:60px;   /* Height of the footer */
+       color: #666666;
+    }
+    #footer{
+      position:absolute;
+       bottom:0;
+       width:100%;
+       height:60px;   /* Height of the footer */
+    }
+  
+
+nav.navbar-default{
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e0e0e0;;
+
+}
+.work-main{
+	color: #666666;
+	text-align: center;
+  margin-bottom:5%;
+}
+.work-main h1{
+	text-align: center;
+	margin: 3% 0 6%;
+  font-weight: bold;
+}
+
+.work-main li{
+	display:inline;
+}
+
+.work-main li img{
+	display:inline;
+	width:40%;
+	box-shadow: 0 0 7px rgba(0,0,0,0.3), 0 7px rgba(0,0,0,0.5);
+	border: 1px solid;
+	margin-bottom: 3%;
+	
+}
+.work-main li img:nth-child(2n+1){
+	margin-right:5%;
+}
+.work-main li img:nth-child(2n){
+	margin-left:5%;
+}
+
+.work-main li img:hover{
+  cursor: pointer;
+}
+
+.banner{
+  display:none;
+  width: 100%;
+  padding: 2% 0;
+  background: rgba(0,0,0,0.7);
+  color: #B9C3C1;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.anchor:hover .banner{
+  display:block;
+}
+
+
+
+/* MEDIA QUERIES*/
+@media screen and (min-width:200px) and (max-width:320px){
+     .anchor:hover .banner{
+      display:none;
+    }
+    .work-main h1{
+      font-size :1.3em;
+      margin-bottom:10%;
+    }
+    .work-main{
+      margin:auto;
+      padding: 8%;
+    }
+    .work-main li img:nth-child(2n+1) {
+      margin-right: 0;
+    }
+    .work-main li img{
+      width: 100%;
+      border:none;
+    }
+    .work-list ul{
+      text-align: center;
+      padding:0;
+    }
+}
+@media screen and (min-width:321px) and (max-width:480px){
+    .anchor:hover .banner{
+      display:none;
+    }
+    .work-main h1{
+      font-size :1.3em;
+      margin-bottom:10%;
+    }
+    .work-main{
+      margin:auto;
+      padding: 8%;
+    }
+    .work-main li img:nth-child(2n+1) {
+      margin-right: 0;
+    }
+    .work-main li img{
+      width: 100%;
+      border:none;
+    }
+    .work-list ul{
+      text-align: center;
+      padding:0;
+    }
+    
+}
+@media screen and (min-width:481px) and (max-width:768px){
+    .anchor:hover .banner{
+      display:none;
+    }
+    .work-main{
+      margin:auto;
+      padding: 5%;
+    }
+    .work-main li img:nth-child(2n+1) {
+      margin-right: 0;
+    }
+    .work-main li img{
+      width: 100%;
+      border:none;
+    }
+    .work-list ul{
+      text-align: center;
+      padding:0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

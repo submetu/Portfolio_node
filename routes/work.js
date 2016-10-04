@@ -3,7 +3,10 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('Work page under construction');
+  res.render('index', { title: 'Express', path: req.baseUrl });
+});
+router.get('/:id', function(req, res, next) {
+  res.render('index', { title: 'Express', path: req.baseUrl });
 });
 
 module.exports = router;
