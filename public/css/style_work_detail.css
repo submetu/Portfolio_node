@@ -19,12 +19,17 @@
 	margin-bottom:10%;
 }
 .detail-img{
+	border: #777777 solid 1px;
 	margin:5% auto;
 	width:90%;
 }
 .detail-img-large{
 	margin:10% auto;
 	width:30%;
+}
+.detail-img-landscape{
+	margin:10% auto;
+	width:60%;
 }
 .prettyprint{
 	margin :5% 0;
@@ -54,6 +59,9 @@
 		.detail-img-large{
 			width:45%;
 		}
+		.detail-img-landscape{
+			width:75%;
+		}
 		.view-more li{
 			margin: 0% 1%;
 		}
@@ -73,6 +81,9 @@
 		}
 		.detail-img-large{
 			width:45%;
+		}
+		.detail-img-landscape{
+			width:75%;
 		}
 		.view-more li{
 			margin: 0% 3%;

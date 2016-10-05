@@ -1,0 +1,83 @@
+extends layout
+
+block content
+  .container.work-detail-main
+    .heading#heading-top
+      h1 IMDb Movie Search
+      h5 JavaScript jQuery AJAX
+    .detail
+      p
+      | Treehouse is an online learning place where the primary focus in on coding and web development. Hundereds of students,   teachers and other personnel are registered users in the Treehouse community.
+      | In order to aid students in learning, Treehouse made availabe their user API to the public to experiment and play around with. The API includes information regarding the user and his/her performance in Treehouse courses along with some other   personal details. This web app allows the user to search for Treehouse registered users by their username.
+      .detail-img
+        img.img-responsive(src='/img/movie_search_img_3.png')
+      h3 Objectives
+      p
+      | The main purpose of this basic node app is to allow the user to enter any username that is registered to teamtreehouse.com. Upon submitting the form, the user will get an information page that includes Treehouse data of that user. There is also a link to the user's Treehouse profile along with their profile picture. 
+      .detail-img-large
+        img.img-responsive(src='/img/movie_search_img_1.png')
+      h3 Challenges
+      p
+      | The biggest challenge of this project was to write the entire app in plain vanilla Node.Js without using any modules or packages such as express. The routing and API data requests were completely handeled with vanilla Node.Js. Other than that, upon submitting the form, if paid close attention, there are no query string parameters in the url. That is obviously because its a POST request rather than a GeT request. Routing the POST request on the root via a status code of 303 was part of the fun. The server responds with a 303 as well as a header pointing a location to another route that handles connections to Treehouse APIs. The following code snippet is a sample code handling basic routes and handling that POST request that gets a response of a 303.
+      p
+      pre.prettyprint
+        code.prettyprint(class="linenums:5")
+          | function home(request,response){
+          |   if(request.url === &apos;/&apos;){
+          |     if(request.method.toLowerCase() === &apos;get&apos;){
+          |       response.writeHead(200,{&apos;Content-Type&apos;:&apos;text/html&apos;});
+          |       //show the home page with header, search , footer
+          |       views(&quot;header&quot;,{},response);
+          |       views(&quot;search&quot;,{},response);
+          |       views(&quot;footer&quot;,{},response);
+          |       response.end();
+          |     }
+          |     else{
+          |       request.on(&apos;data&apos;,function(postBody){
+          |       var postData = querystring.parse(postBody.toString());
+          |       //POST request getting a 303 response
+          |       response.writeHead(303,{&apos;Location&apos;:&apos;/&apos;+postData.username});
+          |       response.end();
+          |       });
+          |     }
+          |   }
+          | }
+          | function user (request,response){
+          |   var username = request.url.replace(&quot;/&quot;, &quot;&quot;);
+          |   if(username.length &gt; 0){
+          |     response.writeHead(200,{&apos;Content-Type&apos;:&apos;text/html&apos;});
+          |     var user = new Profile(username);
+          |     user.on(&apos;end&apos;,function(profile){
+          |       var values = {
+          |       totalPoints: profile.points.total,
+          |       username : profile.profile_name,
+          |       imageUrl : profile.gravatar_url,
+          |       badges   : profile.badges.length,
+          |       jsPoints : profile.points.JavaScript,
+          |       treehouseurl : profile.profile_url
+          |       }
+          |       console.log(values);
+          |       views(&quot;header&quot;,{},response);
+          |       views(&quot;profile&quot;,values,response);
+          |       views(&quot;footer&quot;,{},response);
+          |       response.end();
+          |       // show the search page with header , profile , footer
+          |     });
+          |     user.on(&apos;error&apos;,function(error){
+          |       views(&quot;header&quot;,{},response);
+          |       views(&quot;error&quot;,{},response);
+          |       views(&quot;search&quot;,{},response);
+          |       views(&quot;footer&quot;,{},response);
+          |       response.end();
+          |     });
+          |   }
+          | }
+
+      .detail-img-landscape
+        img.img-responsive(src='/img/movie_search_img_2.png')
+      h3 Results
+      p
+      | After making the web app fully responsive, I marked it as completed. Running a backend server and connecting to third party API's was the main purpose of the app. Moreover, bringing selected data back and displaying it to the user according to the user input is also one of the achievements of the project. Similar projects can be easily built for websites that provide their API such as Twitter, Facebook, Instagram and more. 
+      include ./partials/_work_detail_end
+  script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
+  include ./partials/_js
