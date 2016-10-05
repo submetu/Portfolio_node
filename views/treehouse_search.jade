@@ -21,57 +21,56 @@ block content
       | The biggest challenge of this project was to write the entire app in plain vanilla Node.Js without using any modules or packages such as express. The routing and API data requests were completely handeled with vanilla Node.Js. Other than that, upon submitting the form, if paid close attention, there are no query string parameters in the url. That is obviously because its a POST request rather than a GeT request. Routing the POST request on the root via a status code of 303 was part of the fun. The server responds with a 303 as well as a header pointing a location to another route that handles connections to Treehouse APIs. The following code snippet is a sample code handling basic routes and handling that POST request that gets a response of a 303.
       p
       pre.prettyprint
-        code.prettyprint(class="linenums:5")
-          | function home(request,response){
-          |   if(request.url === &apos;/&apos;){
-          |     if(request.method.toLowerCase() === &apos;get&apos;){
-          |       response.writeHead(200,{&apos;Content-Type&apos;:&apos;text/html&apos;});
-          |       //show the home page with header, search , footer
-          |       views(&quot;header&quot;,{},response);
-          |       views(&quot;search&quot;,{},response);
-          |       views(&quot;footer&quot;,{},response);
-          |       response.end();
-          |     }
-          |     else{
-          |       request.on(&apos;data&apos;,function(postBody){
-          |       var postData = querystring.parse(postBody.toString());
-          |       //POST request getting a 303 response
-          |       response.writeHead(303,{&apos;Location&apos;:&apos;/&apos;+postData.username});
-          |       response.end();
-          |       });
-          |     }
-          |   }
-          | }
-          | function user (request,response){
-          |   var username = request.url.replace(&quot;/&quot;, &quot;&quot;);
-          |   if(username.length &gt; 0){
-          |     response.writeHead(200,{&apos;Content-Type&apos;:&apos;text/html&apos;});
-          |     var user = new Profile(username);
-          |     user.on(&apos;end&apos;,function(profile){
-          |       var values = {
-          |       totalPoints: profile.points.total,
-          |       username : profile.profile_name,
-          |       imageUrl : profile.gravatar_url,
-          |       badges   : profile.badges.length,
-          |       jsPoints : profile.points.JavaScript,
-          |       treehouseurl : profile.profile_url
-          |       }
-          |       console.log(values);
-          |       views(&quot;header&quot;,{},response);
-          |       views(&quot;profile&quot;,values,response);
-          |       views(&quot;footer&quot;,{},response);
-          |       response.end();
-          |       // show the search page with header , profile , footer
-          |     });
-          |     user.on(&apos;error&apos;,function(error){
-          |       views(&quot;header&quot;,{},response);
-          |       views(&quot;error&quot;,{},response);
-          |       views(&quot;search&quot;,{},response);
-          |       views(&quot;footer&quot;,{},response);
-          |       response.end();
-          |     });
-          |   }
-          | }
+        | function home(request,response){
+        |   if(request.url === &apos;/&apos;){
+        |     if(request.method.toLowerCase() === &apos;get&apos;){
+        |       response.writeHead(200,{&apos;Content-Type&apos;:&apos;text/html&apos;});
+        |       //show the home page with header, search , footer
+        |       views(&quot;header&quot;,{},response);
+        |       views(&quot;search&quot;,{},response);
+        |       views(&quot;footer&quot;,{},response);
+        |       response.end();
+        |     }
+        |     else{
+        |       request.on(&apos;data&apos;,function(postBody){
+        |       var postData = querystring.parse(postBody.toString());
+        |       //POST request getting a 303 response
+        |       response.writeHead(303,{&apos;Location&apos;:&apos;/&apos;+postData.username});
+        |       response.end();
+        |       });
+        |     }
+        |   }
+        | }
+        | function user (request,response){
+        |   var username = request.url.replace(&quot;/&quot;, &quot;&quot;);
+        |   if(username.length &gt; 0){
+        |     response.writeHead(200,{&apos;Content-Type&apos;:&apos;text/html&apos;});
+        |     var user = new Profile(username);
+        |     user.on(&apos;end&apos;,function(profile){
+        |       var values = {
+        |       totalPoints: profile.points.total,
+        |       username : profile.profile_name,
+        |       imageUrl : profile.gravatar_url,
+        |       badges   : profile.badges.length,
+        |       jsPoints : profile.points.JavaScript,
+        |       treehouseurl : profile.profile_url
+        |       }
+        |       console.log(values);
+        |       views(&quot;header&quot;,{},response);
+        |       views(&quot;profile&quot;,values,response);
+        |       views(&quot;footer&quot;,{},response);
+        |       response.end();
+        |       // show the search page with header , profile , footer
+        |     });
+        |     user.on(&apos;error&apos;,function(error){
+        |       views(&quot;header&quot;,{},response);
+        |       views(&quot;error&quot;,{},response);
+        |       views(&quot;search&quot;,{},response);
+        |       views(&quot;footer&quot;,{},response);
+        |       response.end();
+        |     });
+        |   }
+        | }
 
       .detail-img-large
         img.img-responsive(src='/img/treehouse_details_image_2.png')

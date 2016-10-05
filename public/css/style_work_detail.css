@@ -65,9 +65,9 @@
 		.view-more li{
 			margin: 0% 1%;
 		}
-		/*.prettyprint{
+		.prettyprint{
 			font-size: .7em;
-		}*/
+		}
 }
 @media screen and (min-width:321px) and (max-width:480px){
 		.heading{
@@ -88,9 +88,9 @@
 		.view-more li{
 			margin: 0% 3%;
 		}
-		/*.prettyprint{
+		.prettyprint{
 			font-size: .8em;
-		}*/
+		}
 }
 @media screen and (min-width:481px) and (max-width:768px){
     	.work-detail-main div.detail{
@@ -99,9 +99,9 @@
 		.view-more li{
 			margin: 0% 3%;
 		}
-		/*.prettyprint{
+		.prettyprint{
 			font-size: .8em;
-		}*/
+		}
 }
 @media screen and (min-width:768px) and (max-width:1024px){
     

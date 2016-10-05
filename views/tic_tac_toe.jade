@@ -20,141 +20,140 @@ block content
       | One of the obstacles in the game was to change the turn of a player when a player has finished their turn. The changing of the turn meant that the hover states on the boxes changed, the turn image on the top changed and when the player clicks on a box, the image should be corresponding to the player who made his turn. Besides that the win algorithm was handled by jQuery such that if a player's box's selected class pattern matched with one of the winning patterns, the game will end and the player will win. If all the boxes have the selected class and no player was able to win then the game will end in the draw and the draw screen will show. All of this happens on one page where the DOM is manipulated according to clicks by the user. The javascript code was written in OOP style with loose augmentation and closures to keep the variables private. jQuery was injected in the closure to increase performance as well. The following is an example snippet from the code
       p
       pre.prettyprint
-        code.prettyprint
-          | var MODULE = (function (my,$) {
-          | &quot;use strict&quot;;
-          | //cache all the dom elements of the boxes
-          | var $one=$(&apos;.boxes li&apos;).eq(0);
-          | var $two=$(&apos;.boxes li&apos;).eq(1);
-          | var $three=$(&apos;.boxes li&apos;).eq(2);
-          | var $four=$(&apos;.boxes li&apos;).eq(3);
-          | var $five=$(&apos;.boxes li&apos;).eq(4);
-          | var $six=$(&apos;.boxes li&apos;).eq(5);
-          | var $seven=$(&apos;.boxes li&apos;).eq(6);
-          | var $eight=$(&apos;.boxes li&apos;).eq(7);
-          | var $nine=$(&apos;.boxes li&apos;).eq(8);
-          | my.gameManager={
-          | gameStarted:true, //initally the gameStarted is true
-          | gameEnded:false, //initially the gameEnded is false
-          | gameRunning:false, //initially the gameRunning is false
-          | //function that handles start screen and end screens
-          | currentScreen:function(){
-          | //When the game starts
-          | if(!this.gameEnded &amp;&amp; this.gameStarted){
-          | my.gameUI.startPage(); //display the start page
-          | this.gameStarted=false;
-          | this.gameRunning=true;
-          | }
-          | //When the game ends
-          | if(!this.gameStarted &amp;&amp; this.gameEnded){
-          | //if player1.win is true
-          | if(my.player1.win){
-          | my.gameUI.winner1Page();//display the winner page for player 1
-          | }
-          | //if player2.win is true
-          | else if(my.player2.win){
-          | my.gameUI.winner2Page(); //display the winner page for player2
-          | }
-          | else{
-          | my.gameUI.tiePage(); // display the tie page
-          | }
-          | //after the game ends, set gameEnded and gameRunning equal to false
-          | this.gameEnded=false;
-          | this.gameRunning=false;
-          | }
-          | //whenever the currentScreen function is called reset both player win variable to false
-          | my.player1.win=false;
-          | my.player2.win=false;
-          | },
-          | game:function(){
-          | //playerturn goes to player1 at the start
-          | my.board.playerturn(&quot;player1&quot;,&quot;player2&quot;);
-          | //check for changes on the boxes
-          | $(&apos;.boxes li&apos;).click(function(){
-          | //PLAYER1
-          | //VERTICAL COMBINATIONS
-          | if($one.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $four.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $seven.hasClass(&quot;box-filled-1 clicked&quot;)){
-          | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
-          | }
-          | if($two.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $eight.hasClass(&quot;box-filled-1 clicked&quot;)){
-          | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
-          | }
-          | if($three.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $six.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-1 clicked&quot;)){
-          | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
-          | }
-          | ///HORIZONTAL COMBINATIONS
-          | if($one.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $two.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $three.hasClass(&quot;box-filled-1 clicked&quot;)){
-          | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
-          | }
-          | if($four.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $six.hasClass(&quot;box-filled-1 clicked&quot;)){
-          | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
-          | }
-          | if($seven.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $eight.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-1 clicked&quot;)){
-          | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
-          | }
-          | //DIAGONAL COMBINATIONS
-          | if($one.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-1 clicked&quot;)){
-          | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
-          | }
-          | if($three.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $seven.hasClass(&quot;box-filled-1 clicked&quot;)){
-          | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
-          | }
-          | //PLAYER2
-          | //VERTICAL COMBINATIONS
-          | if($one.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $four.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $seven.hasClass(&quot;box-filled-2 clicked&quot;)){
-          | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
-          | }
-          | if($two.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $eight.hasClass(&quot;box-filled-2 clicked&quot;)){
-          | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
-          | }
-          | if($three.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $six.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-2 clicked&quot;)){
-          | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
-          | }
-          | ///HORIZONTAL COMBINATIONS
-          | if($one.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $two.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $three.hasClass(&quot;box-filled-2 clicked&quot;)){
-          | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
-          | }
-          | if($four.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $six.hasClass(&quot;box-filled-2 clicked&quot;)){
-          | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
-          | }
-          | if($seven.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $eight.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-2 clicked&quot;)){
-          | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
-          | }
-          | //DIAGONAL COMBINATIONS
-          | if($one.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-2 clicked&quot;)){
-          | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
-          | }
-          | if($three.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $seven.hasClass(&quot;box-filled-2 clicked&quot;)){
-          | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
-          | }
-          | //TIE
-          | //if the sum of the boxes clicked by player 1 and player 2 equals to 9 (total boxes) AND if no player has won yet then run the my.gameManager.tie() funciton to tie the game
-          | if($(&apos;.boxes li[class=&quot;box box-filled-1 clicked&quot;]&apos;).length + $(&apos;.boxes li[class=&quot;box box-filled-2 clicked&quot;]&apos;).length===9 &amp;&amp; !my.player1.win &amp;&amp; !my.player2.win){
-          | my.gameManager.tie();
-          | }
-          | });
-          | },
-          | // run this function when a player wins
-          | win:function(playerwin,playerlose){
-          | my.gameManager.gameStarted=false;
-          | my.gameManager.gameEnded=true;
-          | my[playerwin].win=true;
-          | my[playerlose].win=false;
-          | my.board.reset(); //reset the board for the next game
-          | my.gameManager.currentScreen();
-          | },
-          | // run this function when no player wins and all boxes are clicked
-          | tie:function(){
-          | my.gameManager.gameStarted=false;
-          | my.gameManager.gameEnded=true;
-          | my.player1.win=false;
-          | my.player2.win=false;
-          | my.board.reset();
-          | my.gameManager.currentScreen();
-          | }
-          | };
-          | return my;
-          | }(MODULE || {},jQuery));
+        | var MODULE = (function (my,$) {
+        | &quot;use strict&quot;;
+        | //cache all the dom elements of the boxes
+        | var $one=$(&apos;.boxes li&apos;).eq(0);
+        | var $two=$(&apos;.boxes li&apos;).eq(1);
+        | var $three=$(&apos;.boxes li&apos;).eq(2);
+        | var $four=$(&apos;.boxes li&apos;).eq(3);
+        | var $five=$(&apos;.boxes li&apos;).eq(4);
+        | var $six=$(&apos;.boxes li&apos;).eq(5);
+        | var $seven=$(&apos;.boxes li&apos;).eq(6);
+        | var $eight=$(&apos;.boxes li&apos;).eq(7);
+        | var $nine=$(&apos;.boxes li&apos;).eq(8);
+        | my.gameManager={
+        | gameStarted:true, //initally the gameStarted is true
+        | gameEnded:false, //initially the gameEnded is false
+        | gameRunning:false, //initially the gameRunning is false
+        | //function that handles start screen and end screens
+        | currentScreen:function(){
+        | //When the game starts
+        | if(!this.gameEnded &amp;&amp; this.gameStarted){
+        | my.gameUI.startPage(); //display the start page
+        | this.gameStarted=false;
+        | this.gameRunning=true;
+        | }
+        | //When the game ends
+        | if(!this.gameStarted &amp;&amp; this.gameEnded){
+        | //if player1.win is true
+        | if(my.player1.win){
+        | my.gameUI.winner1Page();//display the winner page for player 1
+        | }
+        | //if player2.win is true
+        | else if(my.player2.win){
+        | my.gameUI.winner2Page(); //display the winner page for player2
+        | }
+        | else{
+        | my.gameUI.tiePage(); // display the tie page
+        | }
+        | //after the game ends, set gameEnded and gameRunning equal to false
+        | this.gameEnded=false;
+        | this.gameRunning=false;
+        | }
+        | //whenever the currentScreen function is called reset both player win variable to false
+        | my.player1.win=false;
+        | my.player2.win=false;
+        | },
+        | game:function(){
+        | //playerturn goes to player1 at the start
+        | my.board.playerturn(&quot;player1&quot;,&quot;player2&quot;);
+        | //check for changes on the boxes
+        | $(&apos;.boxes li&apos;).click(function(){
+        | //PLAYER1
+        | //VERTICAL COMBINATIONS
+        | if($one.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $four.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $seven.hasClass(&quot;box-filled-1 clicked&quot;)){
+        | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
+        | }
+        | if($two.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $eight.hasClass(&quot;box-filled-1 clicked&quot;)){
+        | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
+        | }
+        | if($three.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $six.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-1 clicked&quot;)){
+        | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
+        | }
+        | ///HORIZONTAL COMBINATIONS
+        | if($one.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $two.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $three.hasClass(&quot;box-filled-1 clicked&quot;)){
+        | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
+        | }
+        | if($four.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $six.hasClass(&quot;box-filled-1 clicked&quot;)){
+        | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
+        | }
+        | if($seven.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $eight.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-1 clicked&quot;)){
+        | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
+        | }
+        | //DIAGONAL COMBINATIONS
+        | if($one.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-1 clicked&quot;)){
+        | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
+        | }
+        | if($three.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-1 clicked&quot;) &amp;&amp; $seven.hasClass(&quot;box-filled-1 clicked&quot;)){
+        | my.gameManager.win(&quot;player1&quot;,&quot;player2&quot;);
+        | }
+        | //PLAYER2
+        | //VERTICAL COMBINATIONS
+        | if($one.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $four.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $seven.hasClass(&quot;box-filled-2 clicked&quot;)){
+        | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
+        | }
+        | if($two.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $eight.hasClass(&quot;box-filled-2 clicked&quot;)){
+        | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
+        | }
+        | if($three.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $six.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-2 clicked&quot;)){
+        | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
+        | }
+        | ///HORIZONTAL COMBINATIONS
+        | if($one.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $two.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $three.hasClass(&quot;box-filled-2 clicked&quot;)){
+        | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
+        | }
+        | if($four.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $six.hasClass(&quot;box-filled-2 clicked&quot;)){
+        | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
+        | }
+        | if($seven.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $eight.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-2 clicked&quot;)){
+        | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
+        | }
+        | //DIAGONAL COMBINATIONS
+        | if($one.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $nine.hasClass(&quot;box-filled-2 clicked&quot;)){
+        | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
+        | }
+        | if($three.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $five.hasClass(&quot;box-filled-2 clicked&quot;) &amp;&amp; $seven.hasClass(&quot;box-filled-2 clicked&quot;)){
+        | my.gameManager.win(&quot;player2&quot;,&quot;player1&quot;);
+        | }
+        | //TIE
+        | //if the sum of the boxes clicked by player 1 and player 2 equals to 9 (total boxes) AND if no player has won yet then run the my.gameManager.tie() funciton to tie the game
+        | if($(&apos;.boxes li[class=&quot;box box-filled-1 clicked&quot;]&apos;).length + $(&apos;.boxes li[class=&quot;box box-filled-2 clicked&quot;]&apos;).length===9 &amp;&amp; !my.player1.win &amp;&amp; !my.player2.win){
+        | my.gameManager.tie();
+        | }
+        | });
+        | },
+        | // run this function when a player wins
+        | win:function(playerwin,playerlose){
+        | my.gameManager.gameStarted=false;
+        | my.gameManager.gameEnded=true;
+        | my[playerwin].win=true;
+        | my[playerlose].win=false;
+        | my.board.reset(); //reset the board for the next game
+        | my.gameManager.currentScreen();
+        | },
+        | // run this function when no player wins and all boxes are clicked
+        | tie:function(){
+        | my.gameManager.gameStarted=false;
+        | my.gameManager.gameEnded=true;
+        | my.player1.win=false;
+        | my.player2.win=false;
+        | my.board.reset();
+        | my.gameManager.currentScreen();
+        | }
+        | };
+        | return my;
+        | }(MODULE || {},jQuery));
 
 
       .detail-img-landscape
