@@ -28,6 +28,16 @@
 .prettyprint{
 	margin :5% 0;
 }
+.view-more{
+	border-top:#777777 solid 1px;
+	padding: 5% ;
+	margin: 8% auto 0;
+	text-align: center;
+}
+.view-more li{
+	display:inline-block;
+	margin-right:5%;
+}
 
 
 @media screen and (min-width:200px) and (max-width:320px){
@@ -43,6 +53,12 @@
 		.detail-img-large{
 			width:45%;
 		}
+		.view-more li{
+			margin: 0% 1%;
+		}
+		.prettyprint{
+			font-size: .7em;
+		}
 }
 @media screen and (min-width:321px) and (max-width:480px){
 		.heading{
@@ -57,10 +73,22 @@
 		.detail-img-large{
 			width:45%;
 		}
+		.view-more li{
+			margin: 0% 3%;
+		}
+		.prettyprint{
+			font-size: .8em;
+		}
 }
 @media screen and (min-width:481px) and (max-width:768px){
     	.work-detail-main div.detail{
 			width:85%;
+		}
+		.view-more li{
+			margin: 0% 3%;
+		}
+		.prettyprint{
+			font-size: .8em;
 		}
 }
 @media screen and (min-width:768px) and (max-width:1024px){

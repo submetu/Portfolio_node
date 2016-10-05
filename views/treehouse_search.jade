@@ -2,7 +2,7 @@ extends layout
 
 block content
   .container.work-detail-main
-    .heading
+    .heading#heading-top
       h1 Treehouse User Search
       h5 JavaScript jQuery Node.Js
     .detail
@@ -77,6 +77,7 @@ block content
         img.img-responsive(src='/img/treehouse_details_image_2.png')
       h3 Results
       p
-      | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et augue nunc. In pharetra elit nec justo pellentesque, eget consequat metus posuere. Nunc condimentum tincidunt velit porta laoreet. Mauris a pulvinar mauris. Nam ac nunc sed diam ultrices eleifend non ut eros. Duis euismod aliquet felis ut tempus. Fusce ornare tincidunt felis sed scelerisque. In   vestibulum feugiat odio, eget ultrices turpis consequat eget. Nunc ligula arcu, imperdiet at leo quis, posuere suscipit nibh.
+      | After making the web app fully responsive, I marked it as completed. Running a backend server and connecting to third party API's was the main purpose of the app. Moreover, bringing selected data back and displaying it to the user according to the user input is also one of the achievements of the project. Similar projects can be easily built for websites that provide their API such as Twitter, Facebook, Instagram and more. 
+      include ./partials/_work_detail_end
   script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
   include ./partials/_js

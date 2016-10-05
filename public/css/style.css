@@ -76,7 +76,7 @@ body{
     text-decoration: underline;
 }
 
-.recent-work #view-more{
+#view-more{
     margin-top: 1%;
     text-decoration: none;
     color: #666666;
@@ -86,12 +86,12 @@ body{
     box-shadow: 0 0 2px rgba(0,0,0,.7);
     transition-duration: .3s;
 }
-.recent-work #view-more img{
+#view-more img{
     width:15px;
     display: inline;
     opacity: 1;
 }
-.recent-work #view-more:hover{
+#view-more:hover{
     color:#088A4B;
     box-shadow:none;
     border:1px solid black;
@@ -224,12 +224,12 @@ social-media-icons>ul>li:nth-child(3){
     footer h3{
         font-size: 0.5em;
     }
-    .recent-work #view-more{
+    #view-more{
         padding: 5px 5px 5px 7.5px;
         box-shadow: 0 0 2px rgba(0,0,0,.7);
         transition-duration: .5s;
     }
-    .recent-work #view-more img{
+    #view-more img{
         width:7px;
         display: inline;
         margin-top:5%;
@@ -301,12 +301,12 @@ social-media-icons>ul>li:nth-child(3){
     footer h3{
         font-size: 0.5em;
     }
-    .recent-work #view-more{
+    #view-more{
         padding: 5px 5px 5px 7.5px;
         box-shadow: 0 0 2px rgba(0,0,0,.7);
         transition-duration: .5s;
     }
-    .recent-work #view-more img{
+    #view-more img{
         width:7px;
         display: inline;
         margin-top:5%;
