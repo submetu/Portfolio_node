@@ -13,7 +13,9 @@ router.get('/:id', function(req, res, next) {
 	if(id === 'movie_search'){
 		res.render('movie_search', { title: 'Express', path: req.baseUrl });
 	}
-  
+	if(id === 'tic_tac_toe'){
+		res.render('tic_tac_toe', { title: 'Express', path: req.baseUrl });
+	} 
 });
 
 module.exports = router;
