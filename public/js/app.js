@@ -32,5 +32,12 @@ $('#view-more').click(function(){
     window.open ('work.html','_self',false)
 });
 
+$('.view.view-tenth').click(function(){
+    if (window.matchMedia("(max-width: 800px)").matches) {
+        $('.test').attr("href","/work/treehouse_search");
+    } 
+});
+
+
 
 
