@@ -7,76 +7,63 @@ block content
       h5 JavaScript jQuery
     .detail
       p
-      | Treehouse is an online learning place where the primary focus in on coding and web development. Hundreds of students,   teachers and other personnel are registered users in the Treehouse community.
-      | In order to aid students in learning, Treehouse made available their user API to the public to experiment and play around with. The API includes information regarding the user and his/her performance in Treehouse courses along with some other   personal details. This web app allows the user to search for Treehouse registered users by their username.
+      | Whenever there is more data than a page can handle, instead of cramming all the data on to one page, a common and elegant way is to use pagination. While searching a database of users, pagination is very useful and this application does exactly that.
       .detail-img-landscape
         img.img-responsive(src='/img/pagination_img_3.png')
       h3 Objectives
       p
-      | The main purpose of this basic node app is to allow the user to enter any username that is registered to teamtreehouse.com. Upon submitting the form, the user will get an information page that includes Treehouse data of that user. There is also a link to the user's Treehouse profile along with their profile picture. 
+      | The purpose of this project is to showcase the ability to paginate lots of data. Also, users can search for the data, in this case, according to the name and email of the students. The search is in real time so on every key press the search updates and shows the closest match. In the case that no student matches the search entry, the page notifies the user. 
       .detail-img-landscape
         img.img-responsive(src='/img/pagination_img_2.png')
       h3 Challenges
       p
-      | The biggest challenge of this project was to write the entire app in plain vanilla Node.Js without using any modules or packages such as express. The routing and API data requests were completely handled with vanilla Node.Js. Other than that, upon submitting the form, if paid close attention, there are no query string parameters in the url. That is obviously because its a POST request rather than a GeT request. Routing the POST request on the root via a status code of 303 was part of the fun. The server responds with a 303 as well as a header pointing a location to another route that handles connections to Treehouse APIs. The following code snippet is a sample code handling basic routes and handling that POST request that gets a response of a 303.
+      | This is a fairly simple project using jQuery libraries for search features and paginations. However, this project used NO jQuery libraries. Instead, all the code is written in plain JavaScript and jQuery. This gave me the opportunity to make the pagination as customisable as possible. The user can choose how many students should be displayed at a time and the pagination adjusts accordingly. The search feature tries to get the closes match and after every key stroke, it displays the match. This is all done without any jQuery library. A sample code snippet from the original code is provided below.
       p
-      pre.prettyprint
-        | function home(request,response){
-        |   if(request.url === &apos;/&apos;){
-        |     if(request.method.toLowerCase() === &apos;get&apos;){
-        |       response.writeHead(200,{&apos;Content-Type&apos;:&apos;text/html&apos;});
-        |       //show the home page with header, search , footer
-        |       views(&quot;header&quot;,{},response);
-        |       views(&quot;search&quot;,{},response);
-        |       views(&quot;footer&quot;,{},response);
-        |       response.end();
-        |     }
-        |     else{
-        |       request.on(&apos;data&apos;,function(postBody){
-        |       var postData = querystring.parse(postBody.toString());
-        |       //POST request getting a 303 response
-        |       response.writeHead(303,{&apos;Location&apos;:&apos;/&apos;+postData.username});
-        |       response.end();
-        |       });
-        |     }
-        |   }
-        | }
-        | function user (request,response){
-        |   var username = request.url.replace(&quot;/&quot;, &quot;&quot;);
-        |   if(username.length &gt; 0){
-        |     response.writeHead(200,{&apos;Content-Type&apos;:&apos;text/html&apos;});
-        |     var user = new Profile(username);
-        |     user.on(&apos;end&apos;,function(profile){
-        |       var values = {
-        |       totalPoints: profile.points.total,
-        |       username : profile.profile_name,
-        |       imageUrl : profile.gravatar_url,
-        |       badges   : profile.badges.length,
-        |       jsPoints : profile.points.JavaScript,
-        |       treehouseurl : profile.profile_url
-        |       }
-        |       console.log(values);
-        |       views(&quot;header&quot;,{},response);
-        |       views(&quot;profile&quot;,values,response);
-        |       views(&quot;footer&quot;,{},response);
-        |       response.end();
-        |       // show the search page with header , profile , footer
-        |     });
-        |     user.on(&apos;error&apos;,function(error){
-        |       views(&quot;header&quot;,{},response);
-        |       views(&quot;error&quot;,{},response);
-        |       views(&quot;search&quot;,{},response);
-        |       views(&quot;footer&quot;,{},response);
-        |       response.end();
-        |     });
-        |   }
-        | }
+      pre.prettyprint.
+       //FUNCTIONS
+        //function runs when the user presses the search button or writes something in the input search box.
+        function keyUpFunction(){
+            //Store the keyUps in the variable filter
+            var filter=$studentSearchInput.val();
+            //hide the noResult html 
+            $noResult.hide();
+            //If there is something in the input box
+            if(filter){
+                //the students that are not matching the input box text are given the id of hide
+                $('ul.student-list').find("h3:not(:Contains("+filter+"))").parent().parent().attr("id","hide");
+                //the students that are matching the input box text are given the id of show
+                $('ul.student-list').find("h3:Contains("+filter+")").parent().parent().attr("id","show");
+                //the emails that are matching the input box text are given the id of show
+                $('ul.student-list').find("span[class*='email']:Contains("+filter+")").parent().parent().attr("id","show");
+                //number of students with the id of show
+                var studentLength=$('ul.student-list #show').length;
+                //the pagination buttons are removed
+                $('.pagination ul').children().remove();
+                //run the function of createPagination. Pass the number of students with the id of show as an argument
+                createPagination(studentLength,itemsPerPage);
+            }
+            //if the input box is empty
+            else{
+                //remove pagination buttons
+                 $('.pagination ul').children().remove();
+                //give all the students and id of show
+                 $('ul.student-list').children().attr("id","show");
+                //create pagination. Pass the total number of students as an argument
+                 createPagination(ListItems,itemsPerPage);
+            }
+            //if there are no search results matching the input
+            if($('li.student-item[id="show"]').length === 0){
+                //show the noResult html
+                $noResult.show();
+            }
+          }
+
 
       .detail-img-large
         img.img-responsive(src='/img/pagination_img_1.png')
       h3 Results
       p
-      | After making the web app fully responsive, I marked it as completed. Running a backend server and connecting to third party API's was the main purpose of the app. Moreover, bringing selected data back and displaying it to the user according to the user input is also one of the achievements of the project. Similar projects can be easily built for websites that provide their API such as Twitter, Facebook, Instagram and more. 
+      | The app was fully responsive and had no problems handling data up to a 1000 entries that was tested by myself. The app was designed in a way to be simple yet pleasent to the user. The search feature is extremely fast and the code is cross browser compatible so that won't be an issue. Using no libraries made this project even more fast as extra code isn't being loaded which gets in the way when the data is large.
       include ./partials/_work_detail_end
   script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
   include ./partials/_js
