@@ -1,0 +1,42 @@
+ul.insta-list{
+	text-align: center;
+	margin: auto;
+	padding:0;
+}
+ul.insta-list li{
+	display: inline-block;
+	margin:2%;
+}
+ul.insta-list li img{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.heading{
+	text-align: center;
+	margin: 7%;
+}
+.button-div{
+	margin:10% auto;
+    text-align: center;
+}
+.button{
+	text-decoration: none;
+    color: #666666;
+    display: inline-block;
+    border: 1px solid black;
+    padding: 20px 10px;
+    box-shadow: 0 0 2px rgba(0,0,0,.7);
+    transition-duration: .3s;
+    width:50%;
+}
+.button:hover{
+	cursor: pointer;
+	text-decoration: none;
+    color:#088A4B;
+    box-shadow:none;
+    border:1px solid black;
+    border-radius: 10px;
+}
+.navbar {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;!important
+}
