@@ -10,8 +10,11 @@ $.ajax({
 	success: function(data){
  		console.log(data);
 		for( x in data.data ){
-			$('<li><img src="'+data.data[x].images.low_resolution.url+'" class="img-responsive img-thumbnail"></li>').appendTo('ul.insta-list').hide();
-			$('ul.insta-list li').each(function(i){
+			var $a = $('<a href="'+data.data[x].link+'"target="_blank"></a>');
+			var $li = $('<li><img src="'+data.data[x].images.low_resolution.url+'" class="img-responsive img-thumbnail"></li>');
+			$a.append($li);
+			$a.appendTo('ul.insta-list').hide();
+			$('ul.insta-list a').each(function(i){
 				if(i<6){
 					$(this).show();
 				}
@@ -28,7 +31,7 @@ $.ajax({
 });
 
 $('.button').click(function(){
-	$('ul.insta-list li').each(function(i){
+	$('ul.insta-list a').each(function(i){
 			$(this).fadeIn(600);
 	});
 	$(this).hide();
