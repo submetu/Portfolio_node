@@ -12,12 +12,12 @@ block content
         img.img-responsive(src='/img/movie_search_img_3.png')
       h3 Objectives
       p
-      | The objective of this web app is to allow the user to search movies by title and/or release year. The search displays the most relevant movies to the user. Upon clicking a movie, a custom web page is displayed that shows some information regarding that movie that includes the title, release date, IMDb rating, a plot and a poster image. In addition to all this, the user can go to the IMDb website of the movie as well by clicking on the movie title or the buttom after the plot.
+      | The objective of this web app is to allow the user to search movies by title and/or release year. The search displays the most relevant movies to the user. Upon clicking a movie, a custom web page is displayed that shows some information regarding that movie that includes the title, release date, IMDb rating, a plot and a poster image. In addition to all this, the user can go to the IMDb website of the movie as well by clicking on the movie title or the button after the plot.
       .detail-img-large
         img.img-responsive(src='/img/movie_search_img_1.png')
       h3 Challenges
       p
-      | Challenges during the project included getting the poster API from OMDb. Since the web app makes AJAX calls from the front-end to the OMDb API, the same origin policy does not allow the user to access third party APIs. However making a jsonP call allowed me to get not all, but most of the required data. The poster API was not being available on Google Chrome due to some restrictions. After applying for a key on OMDb for the poster API, I was able to successfully get all the poster images of the movies. Another minor challenge was to reset the url that the movie title in the description pointed towards. There was a bug that the title always pointed towards the same movie but it was fixed easily by some code. The following snippet demostrates that part of the
+      | Challenges during the project included getting the poster API from OMDb. Since the web app makes AJAX calls from the front-end to the OMDb API, the same origin policy does not allow the user to access third party APIs. However making a jsonP call allowed me to get not all, but most of the required data. The poster API was not being available on Google Chrome due to some restrictions. After applying for a key on OMDb for the poster API, I was able to successfully get all the poster images of the movies. Another minor challenge was to reset the url that the movie title in the description pointed towards. There was a bug that the title always pointed towards the same movie but it was fixed easily by some code. The following snippet demonstrates a part of the code.
       p
       pre.prettyprint
         | //make an ajax call to get the imdb rating and the plot
@@ -70,7 +70,7 @@ block content
         img.img-responsive(src='/img/movie_search_img_2.png')
       h3 Results
       p
-      | The final app made successfull AJAX calls to the OMDb api and got the required data according to the user input. The web app also displayed correct custom made pages displayin the correct information of the clicked movie. The app was responsive and extremely efficient in its asynchronous nature. 
+      | The final app made successful AJAX calls to the OMDb api and got the required data according to the user input. The web app also displayed correct custom made pages displaying the correct information of the clicked movie. The app was responsive and extremely efficient in its asynchronous nature. 
       include ./partials/_work_detail_end
   script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
   include ./partials/_js

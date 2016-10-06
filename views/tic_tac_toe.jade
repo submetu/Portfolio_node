@@ -7,17 +7,17 @@ block content
       h5 HTML CSS JavaScript jQuery
     .detail
       p
-      | Tic-Tac-Toe is a basic game that can be played as a single player or as two players. This web app allows two players to have a fun and exciting game of Tic-Tac-Toe with enhanced and modern stylings. The game ends with either player winning or a draw if no player is able to outsmart the other.
+      | Tic-Tac-Toe is a basic game that can be played as a single player or as two players. This web app allows two players to have a fun and exciting game of Tic-Tac-Toe with enhanced and eye-catching styling. The game ends with either player winning or a draw if no player is able to outsmart the other.
       .detail-img
         img.img-responsive(src='/img/tic_tac_toe_img_3.png')
       h3 Objectives
       p
-      | This app may seem to be simple to the user however quite a lot of thought was put into it. The objectives of the game were to have the game run on a single screen throughout. The start page, game page as well as the ending page were all controlled using javascript to ensure the smoothest game experience. Since the game time in Tic-Tac-Toe is very less, users will enjoy more if the game is responsive and blazing fast. jQuery was used for cross-browser compatibility and for DOM manipulations.
+      | This app may seem to be simple to the user however quite a lot of thought was put into it. The objectives of the game were to have the game run on a single screen throughout. The start page, game page as well as the ending page were all controlled using JavaScript to ensure the smoothest game experience. Since the game time in Tic-Tac-Toe is very less, users will enjoy more if the game is responsive and blazing fast. jQuery was used for cross-browser compatibility and for DOM manipulations.
       .detail-img-landscape
         img.img-responsive(src='/img/tic_tac_toe_img_2.png')
       h3 Challenges
       p
-      | One of the obstacles in the game was to change the turn of a player when a player has finished their turn. The changing of the turn meant that the hover states on the boxes changed, the turn image on the top changed and when the player clicks on a box, the image should be corresponding to the player who made his turn. Besides that the win algorithm was handled by jQuery such that if a player's box's selected class pattern matched with one of the winning patterns, the game will end and the player will win. If all the boxes have the selected class and no player was able to win then the game will end in the draw and the draw screen will show. All of this happens on one page where the DOM is manipulated according to clicks by the user. The javascript code was written in OOP style with loose augmentation and closures to keep the variables private. jQuery was injected in the closure to increase performance as well. The following is an example snippet from the code
+      | One of the obstacles in the game was to change the turn of a player when a player has finished their turn. The changing of the turn meant that the hover states on the boxes changed, the turn image on the top changed and when the player clicks on a box, the image should be corresponding to the player who made his turn. Besides that the win algorithm was handled by jQuery such that if a player's box's selected class pattern matched with one of the winning patterns, the game will end and the player will win. If all the boxes have the selected class and no player was able to win then the game will end in the draw and the draw screen will show. All of this happens on one page where the DOM is manipulated according to clicks by the user. The JavaScript code was written in OOP style with loose augmentation and closures to keep the variables private. jQuery was injected in the closure to increase performance as well. The following is an example snippet from the code.
       p
       pre.prettyprint
         | var MODULE = (function (my,$) {
@@ -160,7 +160,7 @@ block content
         img.img-responsive(src='/img/tic_tac_toe_img_1.png')
       h3 Results
       p
-      | The app is fully responsive and delivers a great user experience. The purpose of the app was to write good OOP and private code using various javascript techniques and best practices. The app delivers a good feel to the user and the fast pace game experience makes the users want to give it one more try. An addition to this will be a single player mode where the computer will have different difficulty modes.
+      | The app is fully responsive and delivers a great user experience. The purpose of the app was to write good OOP and private code using various JavaScript techniques and best practices. The app delivers a good feel to the user and the fast pace game experience makes the users want to give it one more try. An addition to this will be a single player mode where the computer will have different difficulty modes.
       include ./partials/_work_detail_end
   script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
   include ./partials/_js

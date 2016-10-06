@@ -1,8 +1,9 @@
 var $root= $('html, body');
 var $introduction=$('<h1 class="tlt">My name is Subhan Naeem and I\'m a web developer</h1>');
-$('div.home-main div.container-fluid').prepend($introduction);
+$introduction.prependTo('div.home-main div.container-fluid').hide();
 //TEXTILATION
 $(function () {
+    $introduction.show();
     $('.tlt').textillate(
         { in: { 
                 sync: false,
