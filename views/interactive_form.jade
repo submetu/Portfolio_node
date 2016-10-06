@@ -7,69 +7,80 @@ block content
       h5 JavaScript jQuery
     .detail
       p
-      | IMDb is the biggest movie database in the world. Almost everybody knows it. Getting data from IMDb about movies is not an easy task. However there are third party websites like OMDb which takes their data from IMDb and provide an API for developers to use in their web apps. This project makes use of the API provided by OMDb.
+      | A simple form takes only a few minutes to build. However, adding client-side validation and making sure that the user is submitting the data that is being expected by the server isn't so simple. Making a good validation form which is interactive is a must for optimal user experience. This project features an interactive form with various validations such as correct email validation, credit card, Zip code and CVV number validations. 
       .detail-img-large
         img.img-responsive(src='/img/interactive_form_img_1.png')
       h3 Objectives
       p
-      | The objective of this web app is to allow the user to search movies by title and/or release year. The search displays the most relevant movies to the user. Upon clicking a movie, a custom web page is displayed that shows some information regarding that movie that includes the title, release date, IMDb rating, a plot and a poster image. In addition to all this, the user can go to the IMDb website of the movie as well by clicking on the movie title or the button after the plot.
+      | THe objective of this project is to deliver feedback to the user on the client-side before the POST request even leaves the user's browser. This method is quick and delivers a great user experience. Not only is it good for the user but also for us developers. This method ensures that the server won't receive any faulty data and it wont have to validate every form field, so it can do other things. Server side validation is important for sensitive information though, but if a user forgets to enter a field that is must or if they enter a wrong credit card number, then the server shouldn't be bothered with it. Moreover, the form is well designed, responsive and has custom drop-down select menus that override the default select menus in the user's device to add more immersiveness. 
       .detail-img-landscape
         img.img-responsive(src='/img/interactive_form_img_3.png')
       h3 Challenges
       p
-      | Challenges during the project included getting the poster API from OMDb. Since the web app makes AJAX calls from the front-end to the OMDb API, the same origin policy does not allow the user to access third party APIs. However making a jsonP call allowed me to get not all, but most of the required data. The poster API was not being available on Google Chrome due to some restrictions. After applying for a key on OMDb for the poster API, I was able to successfully get all the poster images of the movies. Another minor challenge was to reset the url that the movie title in the description pointed towards. There was a bug that the title always pointed towards the same movie but it was fixed easily by some code. The following snippet demonstrates a part of the code.
+      | In this form there is a section in which the users have to choose which Tech-talks they want to attend. There are a few available but some of their timings clash with each other. So, using JavaScript and jQuery, the form doesn't allow the user to select events that are at the same time. This is not hard-coded so in case of another event or time changes, the program will still work and won't allow the user to choose events that clash. This was achieved by reading the string values, parsing them to numbers, and comparing them against the other options that were chosen by the user. The clashing events are greyed out so the user can't select them. 
       p
-      pre.prettyprint
-        | //make an ajax call to get the imdb rating and the plot
-        |   $.getJSON(&quot;http://www.omdbapi.com/?t=&quot;+title+&quot;&amp;plot=full&quot;,function(response){
-        |     //setting the movie search field to empty after a movie is clicked
-        |     $(&apos;#search&apos;).val(&apos;&apos;);
-        |     //setting the year search field to empty after a movie is clicked
-        |     $(&apos;#year&apos;).val(&apos;&apos;);
-        |     //getting the plot of the clicked movie
-        |     var plot=response.Plot;
-        |     //getting the imdb rating of the clicked movie
-        |     var imdbRating=response.imdbRating;
-        |     // get the image url of the clicked movie
-        |     var imgUrl=response.Poster;
-        |     // get the imdb id
-        |     var imdbId=&quot;http://www.imdb.com/title/&quot;+response.imdbID;
-        |     //console.log(response);
-        |     //hide the movies that were searched
-        |     $(&apos;#movies&apos;).hide();
-        |     //set the heading text 
-        |     $headingDiv.text(title+&apos; (&apos;+year+&apos;)&apos;);
-        |     //set the rating text
-        |     $ratingDiv.text(&quot;IMDB Rating: &quot;+imdbRating);
-        |     //set the description
-        |     $descriptionPara.text(plot);
-        |     //set the image url of the title image
-        |     $titleDiv.html(&apos;img&apos;);
-        |     $titleDiv.children().attr(&quot;src&quot;,&quot;http://img.omdbapi.com/?apikey=fe9f4454&amp;i=&quot;+response.imdbID);
-        |     //set the button href attribute 
-        |     $button.attr(&quot;href&quot;,imdbId);
-        |     //set the imdb url of the movie title link
-        |     $headingDivAnchor.attr(&quot;href&quot;,imdbId);
-        |     //if the image url returns &apos;N/A&apos;
-        |     if(imgUrl===&apos;N/A&apos;){
-        |       $titleDiv.html(&apos;i.material-icons.poster-placeholder crop_original&apos;);
-        |     }
-        |     //scroll to the top of the page
-        |     window.scrollTo(0, 0);
-        |     //show the description page of the clicked movie
-        |     $mainDescriptionDiv.show();
-        |   });//end ajax call
-        |   //Click listener on the Search results line
-        |   $(&apos;.top-div a&apos;).on(&quot;click&quot;,function(){
-        |       $(&apos;#movies&apos;).show();
-        |       $(&apos;.main&apos;).hide();
-        |   });//end click listener
+      pre.prettyprint.
+        //Event Listeners
+        //Allow only numbers to be entered in the zip field
+        $('#zip').on('keypress', function(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            return !(charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57));
+        });
+        //Allow only numbers to be entered in the cvv field
+        $('#cvv').on('keypress', function(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            return !(charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57));
+        });
+        //if job role of 'other' is selected, show a text field
+        $('#title').on("change",function(){ //when there is change in the select element
+           if($(this).val()==="other"){ //if the value of the option selected is 'other'
+            $("#other-title").show().focus(); //show the text field and put focus on it
+        }
+            else{ //if the value of the option is not selected as 'other'
+                $("#other-title").hide(); //hide the text field
+            }
+        });
+        //if the design select changes, display the appropriate color select to the user
+        $("#design").on("change",function(){ //when there is change on this select element
+            if($(this).val()==="js puns"){ //if the value of the option selected is 'js puns'
+                //SHOW THE JS PUNS SELECT MENU AND HIDE THE I LOVE JS SELECT MENU
+                $("select#puns").parent().show();
+                $('#colors-js-puns').show();
+                $("select#love").parent().hide();//show the $PunsSelect select element
+            }
+            if($(this).val()==="heart js"){ //if the value of the option selected is 'heart js'
+                //SHOW THE I LOVE JS SELECT MENU AND HIDE THE JS PUNS SELECT MENU
+                $("select#love").parent().show();
+                $('#colors-js-puns').show();
+                $("select#puns").parent().hide();//show the $LoveSelect select element
+            }
+            if ($(this).val()=="Select Theme"){ //if the value of the option selected is 'Select Theme'
+                //HIDE ALL THE SELECT MENUS
+                $('#colors-js-puns').hide();
+            }
+        });
+        ///PAYMENT INFO
+        $('#payment').on("change",function(){
+           if($(this).val()==="select_method") {
+               showHidePayment("select");
+           }
+           if($(this).val()==="credit card") {
+               showHidePayment("credit");
+           }
+           if($(this).val()==="paypal") {
+               showHidePayment("pay");
+           }
+           if($(this).val()==="bitcoin") {
+               showHidePayment("bit");
+           }
+        });  
+
 
       .detail-img-landscape
         img.img-responsive(src='/img/interactive_form_img_2.png')
       h3 Results
       p
-      | The final app made successful AJAX calls to the OMDb api and got the required data according to the user input. The web app also displayed correct custom made pages displaying the correct information of the clicked movie. The app was responsive and extremely efficient in its asynchronous nature. 
-      include ./partials/_work_detail_end
+      | This form is a client-side project which means that it won't send an actual request to a server yet. However, the front-end has been completely programmed and the back-end can be easily programmed in order to handle the POST request made by the form submission. After that the data might be transferred to a database or emailed to a person responsible for handling the data.
+      include ./partials/_work_detail_end 
   script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
   include ./partials/_js
