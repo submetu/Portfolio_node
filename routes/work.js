@@ -15,7 +15,13 @@ router.get('/:id', function(req, res, next) {
 	}
 	if(id === 'tic_tac_toe'){
 		res.render('tic_tac_toe', { title: 'Express', path: req.baseUrl });
+	}
+	if(id === 'interactive_form'){
+		res.render('interactive_form', { title: 'Express', path: req.baseUrl });
 	} 
+	if(id === 'pagination'){
+		res.render('pagination', { title: 'Express', path: req.baseUrl });
+	}  
 });
 
 module.exports = router;
