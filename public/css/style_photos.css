@@ -13,6 +13,7 @@ ul.insta-list li img{
 .heading{
 	text-align: center;
 	margin: 7%;
+	color:#333;
 }
 .button-div{
 	margin:10% auto;
@@ -39,4 +40,20 @@ ul.insta-list li img{
 .navbar {
     padding-bottom: 20px;
     border-bottom: 1px solid #e0e0e0;!important
+}
+
+
+@media screen and (min-width:200px) and (max-width:320px){
+    .heading{
+		font-size:2rem;
+	}
+}
+@media screen and (min-width:321px) and (max-width:480px){
+    .heading{
+		font-size:2rem;
+	}
+    
+}
+@media screen and (min-width:481px) and (max-width:768px){
+    
 }
