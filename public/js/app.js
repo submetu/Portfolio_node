@@ -1,6 +1,6 @@
 var $root= $('html, body');
-var $introduction=$('<h1 class="tlt">My name is Subhan Naeem and I\'m a web developer</h1>');
-$introduction.prependTo('div.home-main div.container-fluid').hide();
+var $introduction=$('<h1 class="tlt">Hi, I\'m Subhan. I\'m a Maker and a Web Developer</h1>');
+$introduction.prependTo('div.home-main div.container-fluid');
 //TEXTILATION
 $(function () {
     $introduction.show();
@@ -29,9 +29,9 @@ $('.recent-work .get-in-touch a').click(function() {
     }, 2000);
     return false;
 });
-$('#view-more').click(function(){
-    window.open ('work.html','_self',false)
-});
+// $('#view-more').click(function(){
+//     window.open ('work.html','_self',false)
+// });
 
 $('.view.view-tenth').click(function(){
     if (window.matchMedia("(max-width: 800px)").matches) {
