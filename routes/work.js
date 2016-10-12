@@ -21,7 +21,10 @@ router.get('/:id', function(req, res, next) {
 	} 
 	if(id === 'pagination'){
 		res.render('pagination', { title: 'Express', path: req.baseUrl });
-	}  
+	}
+	if(id === 'content_scraper'){
+		res.render('content_scraper',{ title: 'Express', path: req.baseUrl });
+	}
 });
 
 module.exports = router;

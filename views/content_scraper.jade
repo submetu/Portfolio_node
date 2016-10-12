@@ -1,0 +1,143 @@
+extends layout
+
+block content
+  .container.work-detail-main
+    .heading#heading-top
+      h1 Content Scraper
+      h5 Node.Js
+    .detail
+      p
+      | In this project, I made a web scraper that saves the output data in a .csv file on the system that the node program is running on. The scraper is automated and runs everyday at a time that the user specifies in the beginning of the program. The scraper has a single entry point to the website and finds the target information itself. 
+      .detail-img
+        img.img-responsive(src='/img/content_scraper_img_1.png')
+      h3 Objectives
+      p
+      | The objective of this project was to create a content scraper with npm modules that assist in scraping, .csv file generation and job scheduling. Another important objective of the scraper was to have only a single entry point to the website's homepage. The scraper is supposed to find the target data itself by going to links and searching. This ensures that if the website gets changed in the future, the scraper will still find the data and output it as a csv file everyday. 
+      .detail-img
+        img.img-responsive(src='/img/content_scraper_img_2.png')
+      h3 Challenges
+      p
+      | There were several challenges. Probably the biggest was the asynchronous http calls to pages to get the required data. In this project, the scraper makes an array of all the links on the homepage and searches for the word 'shirt' in them. It then goes to those links and determines whether the page is about a single shirt or whether it has links to even more shirt. If there are more shirt links, it goes to them and then determines again whether the page is about a single shirt or multiple shirts. The scraper saves all the links of 'single' shirt pages and then sends http requests to those pages in order to get their raw HTML and saves them in an array. The http calls are asynchronous, however a order in which the scraper goes to those pages was not important. However what was important was the order of the data scraped from the HTML array. This is because the database that this data is supposed to go to requires the data to be in a table format with its columns being in a specific order. The scraper is asynchronous as well so I used a npm module named ASYNC which is quite popular. Using the waterfall method, I was able to run the asynchronous scraping in a order so that the array (mainArr) containing the 'ordered' scraped data comes out correct. The following snippet is from a file that uses the ASYNC module to scrape out title,price,image url, page url and the scrape time for all the HTML of all the pages that were in the html array. So we have an array of titles, prices,images,URLs and times of all the shirts available on the website. This data was later converted to a csv through another npm module named fast-csv and the scrape was scheduled through the npm module named npm-schedule.
+      p
+      pre.prettyprint.
+        var cheerio = require('cheerio'),
+        async   = require('async'),
+        getData = require('./ShirtHandler');
+      
+      
+        //function that prepares a main array filled with all the required scraped data
+        function loadData(data,callback){
+        var mainArr   = [];
+        //intermediate arrays with first element as it will be the column header in the CSV file
+        var titleArr  = ['Title'];
+        var priceArr  = ['Price'];
+        var imgUrlArr = ['ImageUrl'];
+        var urlArr   = ['URL'];
+        var timeArr   = ['Time'];
+        //the scraper module loading the html data of all the shirt pages
+        var $ = cheerio.load(data);
+        async.waterfall([
+        function(cb){
+        $('div.breadcrumb').each(function(){ //finds the title html markup 
+        var title = $(this).text().replace('Shirts > ',"");
+        titleArr.push(title); //loads the titles in a titleArr
+        });
+        cb(null,titleArr); //passes an error of null and a titleArr array in the next function
+        },
+        function(titleArr,cb){
+        mainArr.push(titleArr); //pushes the tilteArr array into the mainArr array
+        $('span.price').each(function(){
+        var price = $(this).text();
+        priceArr.push(price);
+        });
+        cb(null,priceArr);
+        },
+        function(priceArr,cb){
+        mainArr.push(priceArr);
+        $('.shirt-picture img').each(function(){
+        var imgUrl = $(this).attr('src');
+        imgUrlArr.push(imgUrl);
+        });
+        cb(null,imgUrlArr);
+        },
+        function(imgUrlArr,cb){
+        mainArr.push(imgUrlArr);
+        imgUrlArr.forEach(function(elem){
+        if(elem !== 'ImageUrl'){ //since the first item in the imgUrlArr is 'ImageUrl', we dont want to iterate over that element
+        elem = elem.replace('img/shirts/shirt-','');
+        elem = parseInt(elem,10);
+        var url = 'http://www.shirts4mike.com/shirt.php?id='+elem;
+        urlArr.push(url);
+        }
+        });
+        cb(null,urlArr);
+        },
+        function(urlArr,cb){
+        mainArr.push(urlArr);
+        urlArr.forEach(function(elem){ 
+        if(elem !== 'URL'){ //since the first item in the urlArr is 'URL, we dont want to iterate over that element
+        var date = new Date();
+        var timeData =  date.getFullYear()
+        + '-' + (date.getMonth() < 10 ? "0" : "") + date.getMonth() 
+        + '-' + (date.getDate() < 10 ? "0" : "") + date.getDate() + ' ' 
+        + date.getHours() + ':' + (date.getMinutes() < 10 ? "0" : "") 
+        + date.getMinutes() 
+        + ':' + (date.getSeconds() < 10 ? "0" : "") + date.getSeconds();
+        timeArr.push(timeData);
+        }
+        
+        });
+        cb(null,timeArr);
+        },
+        function(timeArr,cb){
+        mainArr.push(timeArr);
+        callback(null,mainArr); //if theres no error till here, the callback is passed an error of null and an array of mainArr
+        }
+        ],
+        //if there was an error along the way 
+        function(err,results){
+        if(err){
+        callback(err);//if there was an error along the way the callback is passed the error
+        }
+        else{
+        callback(null,results);//if there was no error along the way the callback is passed the results and an error of null
+        }
+        });
+        }
+        //a function to make the code more readable. This function is called in the getData() function below
+        function LoadData(data,callback){
+        //function that takes in a callback function that gives us the main array full of scraped data
+        loadData(data,function(err,mainArr){
+        if(err){
+        callback(err);
+        }
+        else{
+        callback(null,mainArr);
+        }
+        });
+        }
+        /*  main invoking function that gets the html from htmlGetter.js invokes the loadData function to make mainArr 
+        and checks for errors 
+        */
+        function getMainArray(callback){
+        //the callback function that gets the html string from htmlGetter.js
+        getData(function(err,data){
+        if(err){
+        callback(err);
+        }
+        else{
+        //pass the data(the html string of all the shirt pages) and the callback function
+        LoadData(data,callback);
+        }
+        });
+        }
+        
+        
+        module.exports = getMainArray;
+  
+      h3 Results
+      p
+      | The scraper successfully scrapes data everyday at a user specified time. This can be extended to any website and the snippet above can be changed to what data is to be scraped off of the HTML of the website. The scraper module 'cheerio' is really good as it lets us use jQuery selectors on the DOM elements, which makes our life a whole lot easier. There are also many other jQuery-like methods available to apply onto the selectors. This is command-line application that can be run with pm-2 or forever to run the program on your machine or probably a raspberry-pi. The program can further be instructed to upload the csv files to an online cloud service or even email the csv file as an attachment to your email.
+      include ./partials/_work_detail_end 
+  script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
+  include ./partials/_js
