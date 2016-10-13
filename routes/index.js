@@ -5,6 +5,9 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express',path:req.path });
 });
+router.get('/home_automation', function(req, res, next) {
+  res.send("Page is about to go live. Check back later");
+});
 router.get('/about',function(req,res,next){
 	res.render('about', { title: 'Express', path: req.path });
 });

@@ -21,6 +21,11 @@ nav.navbar.navbar-default
           else
             a(href='/photos') Photos
         li
+          if path === '/home_automation'
+            a(href='/home_automation', style='color:black') Home-Automation
+          else
+            a(href='/home_automation') Home-Automation
+        li
           if path === '/about'
             a(href='/about', style='color:black') About
           else
