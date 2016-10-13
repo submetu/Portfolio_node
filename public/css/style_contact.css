@@ -59,13 +59,14 @@ html,body{
         padding:0 5% 0;
         font-size:1.3em;
 }
-.resume{
-
+.resume,#resume-heading{
+    font-size:1.2em;
 }
 .resume-img{
-    width:3%;
+    width:5%;
     display: inline-block;
 }
+
 .social-media-icons{
     text-align: center;
     margin: 2% auto 5%;
@@ -99,6 +100,12 @@ html,body{
         margin-top:10%;
         font-size: 0.8em;
     }
+    .resume,#resume-heading{
+        font-size:1.2em;
+    }
+    .resume-img{
+        width:15%;
+    }
     .footer{
         margin:auto;
     }
@@ -129,9 +136,20 @@ html,body{
         margin-top:10%;
         font-size: .8em;
     }
+    .resume,#resume-heading{
+        font-size:1.2em;
+    }
+    .resume-img{
+        width:15%;
+    }
     
 }
 @media screen and (min-width:481px) and (max-width:768px){
     
-    
+    .resume,#resume-heading{
+        font-size:1.2em;
+    }
+    .resume-img{
+        width:10%;
+    }
 }
