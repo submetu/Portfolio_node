@@ -56,6 +56,9 @@
         .work-detail-main h1{
 			font-size:1.7em;
 		}
+		.work-detail-main h4{
+			font-size:1.2em;
+		}
 		.work-detail-main div.detail{
 			width:90%;
 		}
@@ -78,6 +81,9 @@
         }
       .work-detail-main h1{
 			font-size:1.7em;
+		}
+		.work-detail-main h4{
+			font-size:1.2em;
 		}
 		.work-detail-main div.detail{
 			width:90%;

@@ -8,7 +8,7 @@ $.ajax({
 	type: 'GET',
 	data: {access_token: token, count: num_photos},
 	success: function(data){
- 		console.log(data);
+ 		//console.log(data);
 		for( x in data.data ){
 			var $a = $('<a href="'+data.data[x].link+'"target="_blank"></a>');
 			var $li = $('<li><img src="'+data.data[x].images.low_resolution.url+'" class="img-responsive img-thumbnail"></li>');
@@ -26,7 +26,7 @@ $.ajax({
 		}
 	},
 	error: function(data){
-		console.log(data); // send the error notifications to console
+		//console.log(data); // send the error notifications to console
 	}
 });
 

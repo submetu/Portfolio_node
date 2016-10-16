@@ -4,6 +4,8 @@ block content
   .container.work-detail-main
     .heading#heading-top
       h1 Treehouse User Search
+      h4  
+        a.github(href="https://github.com/submetu/treehouse_search" target="_blank") Github Repository
       h5 JavaScript jQuery Node.Js
     .detail
       p
@@ -19,6 +21,7 @@ block content
       h3 Challenges
       p
       | The biggest challenge of this project was to write the entire app in plain vanilla Node.Js without using any modules or packages such as express. The routing and API data requests were completely handled with vanilla Node.Js. Other than that, upon submitting the form, if paid close attention, there are no query string parameters in the url. That is obviously because its a POST request rather than a GeT request. Routing the POST request on the root via a status code of 303 was part of the fun. The server responds with a 303 as well as a header pointing a location to another route that handles connections to Treehouse APIs. The following code snippet is a sample code handling basic routes and handling that POST request that gets a response of a 303.
+
       p
       pre.prettyprint
         | function home(request,response){
