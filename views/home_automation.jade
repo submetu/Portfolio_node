@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  .container.work-main
+    h1 Home Automation 
+    .work-list
+      ul
+        li
+          a.anchor(href='/home_automation/step1')
+            img(src='/img/step1.png')
+            .banner
+              h3 LED and Temperature Sensor 
+              span Node.Js Socket.io MQTT Arduino
+        //- li
+        //-   a.anchor(href='#')
+        //-     img(src='/img/step1.png')
+        //-     .banner
+        //-       h3 Test
+        //-       span Test Test Test Test 
+        
+  include ./partials/_js

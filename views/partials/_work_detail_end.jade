@@ -1,8 +1,14 @@
 ul.view-more
-  li
-    div
-      a#view-more(href='/work')
-        span My Work
+  if path === '/home_automation'
+    li
+      div
+        a#view-more(href='/home_automation')
+          span Home Automation
+  else
+    li
+      div
+        a#view-more(href='/work')
+          span My Work
   li
     div
       a#view-more(href='/contact')

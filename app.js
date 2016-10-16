@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var home = require('./routes/index');
 var work = require('./routes/work');
+var home_automation = require('./routes/home_automation');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', home);
 app.use('/work', work);
+app.use('/home_automation', home_automation);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
