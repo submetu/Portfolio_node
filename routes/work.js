@@ -25,6 +25,10 @@ router.get('/:id', function(req, res, next) {
 	if(id === 'content_scraper'){
 		res.render('content_scraper',{ title: 'Express', path: req.baseUrl });
 	}
+	if(id === 'twitter_interface'){
+		res.render('twitter_interface',{ title: 'Express', path: req.baseUrl });
+	}
+
 });
 
 module.exports = router;

@@ -1,0 +1,188 @@
+extends layout
+
+block content
+  .container.work-detail-main
+    .heading#heading-top
+      h1 Twitter Interface
+      h4  
+        a.github(href="https://github.com/submetu/Twitter-Interface" target="_blank") Github Repository
+      h5 Node.Js Express Handlebars jQuery
+    .detail
+      p
+      | Twitter has its own comprehensive API that developers can use in their own web applications to get more out of twitter than you usually could. You can finf about fifty different types of information on a single tweet alone. Its very comprehensive and is protected by your own private details that you can generate from 
+      a(href="https://apps.twitter.com/" target="_blank") https://apps.twitter.com.
+      .detail-img
+        img.img-responsive(src='/img/twitter_interface_img_1.png')
+      h3 Objectives
+      p The objective of this project was to get the twitter API data from my own account. Information such as tweets from my friends, tweets from me, the retweet and favorite count and how long ago they were sent are on this web application. Furthermore, the web app shows the number of followers I have and the recent 5 friends of mine with their details. Then the web app finally shows my last 5 direct messages with the respective details. The web app runs on a server written with Express and Node.Js. The views are written in handlebars, which itself uses logic to manipulate the DOM according to the API data received by the server.  
+      .detail-img-landscape
+        img.img-responsive(src='/img/twitter_interface_img_2.png')
+      h3 Challenges
+      p
+      | The biggest and the only challenge was to understand the twitter API. Twitter's API is really comprehensive and can alone take a couple of days to digest and understand. They have really good documentation but some things are not that obvious and it might get confusing really fast. The key is to know the exact data you want and Google it first. You will get a ton of similar topics on stackoverflow that will contain the exact API endpoint that you have to hit to get that data. Then look at the API documentation and get a feel for it. If you blindly go in and think that okay lets have a look at this API and I'm gonna choose what I want then you might get lost. Other than this, in order to get your direct messages you need to change your permissions in your twitter app and then generate new keys and tokens. Without generating the new keys, you can't access your direct messages. This is something that didn't take long to figure out but is worth mentioning.
+      p
+      pre.prettyprint.
+        var Twitter = require('twitter');
+        var ta = require('time-ago')();
+        var nconf = require('nconf');
+        nconf.argv().env().file({ file: './conf.json' }); //A package to hide the sensitive twitter information
+        //IN ORDER TO SET YOUR TWITTER INFORMATION, CREATE A conf.json FILE IN THE ROOT DIRECTORY WITH THE FOLLOWING PARAMETERS
+        var consumerKey = nconf.get('consumer_key');
+        var consumerSecret = nconf.get('consumer_secret');
+        var accessTokenKey = nconf.get('access_token_key');
+        var accessTokenSecret = nconf.get('access_token_secret');
+        //Initialize the client with the sensitive information
+        var client = new Twitter({
+          consumer_key: consumerKey,
+          consumer_secret: consumerSecret,
+          access_token_key: accessTokenKey,
+          access_token_secret: accessTokenSecret
+        });
+        // A series of twitter api calls to get data in a sequence and saving it to the "mainArr"
+        //Get Timeline
+        var getTimeLine = function (){
+        return new Promise (function(resolve,reject){
+        client.get('statuses/home_timeline', {screen_name: 'MetuSub', count :5}, function(error, tweets, response) {
+        var mainArr=[]; //The array that will be passed to all the subsequent twitter api calls
+        var tempArr=[]; // a temporary array to hold information in
+        for (var tweet in tweets){
+        var testObject = {};
+        var tweetDate = tweets[tweet].created_at; //date with twitter formatiing
+        var newtweetDate = new Date(tweetDate); //date with regular formatiing
+        newtweetDate= Date.parse(newtweetDate); // date in the form of a timestamp
+        newtweetDate = ta.ago(newtweetDate); // time difference--- eg. 3 secs ago, 4 days ago---- handled by "time-ago" library
+        testObject.createdAt= newtweetDate;
+        testObject.name=tweets[tweet].user.name;
+        testObject.screenName=tweets[tweet].user.screen_name;
+        testObject.tweet=tweets[tweet].text;
+        testObject.retweetCount=tweets[tweet].retweet_count;
+        testObject.favoriteCount=tweets[tweet].favorite_count;
+        testObject.profileImage=tweets[tweet].user.profile_image_url;
+        tempArr.push(testObject);
+        }
+        mainArr.push(tempArr); //now mainArr array holds another array with Timeline information of the user
+        resolve(mainArr);
+        });
+        });
+        };
+        //Get Following
+        var getFollowing = function (mainArr){ //the function gets the mainArr from the previous promise
+        return new Promise(function(resolve,reject){
+        client.get('friends/list', {screen_name: 'MetuSub', count :5}, function(error, following, response) {
+        var followingArr = [];
+        followingArr = following.users.map(function(item){
+        var testObject = {};
+        testObject.name = item.name;
+        testObject.screenName = item.screen_name;
+        testObject.profileImage = item.profile_image_url;
+        return testObject; //Makes the "followingArr" hold the "testObject" inside it
+        });
+        mainArr.push(followingArr);
+        resolve(mainArr);
+        });
+        });
+        };
+        //received direct message
+        var getRecMessage = function(mainArr){//the function gets the mainArr from the previous promise
+        return new Promise(function(resolve,reject){
+        client.get('direct_messages', {count :5}, function(error, message, response) {
+        var recMsgArr = [];
+        recMsgArr = message.map(function(item){
+        var testObject = {};
+        testObject.message = item.text;
+        testObject.senderName = item.sender.name;
+        testObject.senderImage = item.sender.profile_image_url;
+        var newTime = new Date(item.created_at);
+        testObject.sentTimestamp = Date.parse(newTime);
+        testObject.sentTimeAgo = ta.ago(newTime);
+        return testObject;
+        });
+        mainArr.push(recMsgArr);
+        resolve(mainArr);
+        });
+        });
+        };
+        //Sent direct message
+        var getSentMessage = function(mainArr){//the function gets the mainArr from the previous promise
+        return new Promise(function(resolve,reject){
+        client.get('direct_messages/sent', {count :5}, function(error, message, response) {
+        var sentMsgArr = [];
+        sentMsgArr = message.map(function(item){
+        var testObject = {};
+        testObject.message = item.text;
+        testObject.senderName = item.sender.name;
+        testObject.senderImage = item.sender.profile_image_url;
+        var newTime = new Date(item.created_at);
+        testObject.sentTimestamp = Date.parse(newTime);
+        testObject.sentTimeAgo = ta.ago(newTime);
+        testObject.recName = item.recipient.name;
+        return testObject;
+        });
+        mainArr.push(sentMsgArr);
+        resolve(mainArr);
+        });
+        });
+        };
+        //Get following Count and name and screen name of the user
+        var getFollowingCount = function(mainArr){//the function gets the mainArr from the previous promise
+        return new Promise(function(resolve,reject){
+        client.get('statuses/user_timeline', {screen_name: 'MetuSub', count :5}, function(error, following, response) {
+        var followingCount;
+        var name;
+        var screen_name;
+        var profileImage;
+        for(var item in following){
+        followingCount = following[item].user.friends_count;
+        name = following[item].user.name;
+        screen_name = following[item].user.screen_name;
+        profileImage = following[item].user.profile_image_url;
+        }
+        mainArr.push(followingCount);
+        mainArr.push(name);
+        mainArr.push(screen_name);
+        mainArr.push(profileImage);
+        resolve(mainArr);
+        });
+        });
+        };
+        //function that is sent out from this module to be used in index.js in the routes folder
+        function sendData(callback){
+        getTimeLine().then(function(mainArr){
+        return getFollowing(mainArr);
+        }).then(function(mainArr){
+        return getRecMessage(mainArr);
+        }).then(function(mainArr){
+        return getSentMessage(mainArr);
+        }).then(function(mainArr){
+        return getFollowingCount(mainArr);
+        }).then(function(mainArr){
+        //intercepting the mainArr to make the getRecMessage and getSentMessage Objects in a order by timestamp
+        //creating some temporary arrays to manipulate the 3rd and 4th elements of the mainArr
+        var tempMainArr = [];
+        var tempArr1 = mainArr[2];
+        var tempArr2 = mainArr[3];
+        tempMainArr = tempArr1.concat(tempArr2);
+        //the actual sorting function
+        tempMainArr.sort(function(x, y){
+            return y.sentTimestamp - x.sentTimestamp;
+        });
+        //create a new array with 7 elements, the third element now being a collection of direct messages from and to the user
+        //The last four elements hold the following count, name, screen name and the profile image of the user respectively
+        var newMainArr = [mainArr[0],mainArr[1],tempMainArr,mainArr[4],mainArr[5],mainArr[6],mainArr[7]];
+        //send the newMainArr out with the callback fucnction
+        callback(null,newMainArr);
+        }).catch(function(error){
+        //if there is an error, send an error with the callback function
+        callback(error);
+        });
+        }
+        module.exports = sendData;
+
+      .detail-img-large
+        img.img-responsive(src='/img/twitter_interface_img_3.png')
+      h3 Results
+      p
+      | This project works as expected. The CSS makes the page look a little prettier. However there are some features that I can implement further to enhance the functionality of the app. For example, I could add a input for a tweet that only expects 140 characters (maximum tweet size). And I can use the POST method on a Twitter endpoint to post a tweet. I can also make the app give friendly error messages when something goes wrong or when Twitter is down for some reason. From the code snippet, you can see use of Javascript's Promises which are really helpful to get sequential data from asynchronous functions. Also, its much neater than the callback hell that you must have heard about. Other than this, you can see from the first picture on the page, I have some random test messages and some random followers. One of them is another account of mine. I don't use twitter much and I have pretty much no friends who use it. So I just made two test accounts in order to make this app. But if you get the key and token information from Twitter, you can make such an app for yourself and probably have more realistic and meaningful data on your page that you would actually read and profit from. 
+      include ./partials/_work_detail_end 
+  script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
+  include ./partials/_js

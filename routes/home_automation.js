@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('work', { title: 'Express', path: req.baseUrl });
+  res.render('home_automation', { title: 'Express', path: req.baseUrl });
 });
 router.get('/:id', function(req, res, next) {
 	var id = req.params.id;
