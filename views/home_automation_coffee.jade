@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  .container.work-detail-main
+    .heading#heading-top
+      h1 Automated Coffee
+      h4  
+        a.github(href="https://github.com/submetu/Home-Automation" target="_blank") Github Repository
+      h5 Node.Js Socket.io MQTT NodeMCU 
+    .detail
+      p
+      | The next step in was to apply these concepts to a real household application. Instead of using the arduino we used the NodeMCU as the micro-controller. There were several reasons for this. First, we needed a wireless connection between the device and the gateway. In order to do this, we had three main options.  
+      ul.list
+        li Arduino with WiFi shield
+        li Esp8266
+        li NodeMCU
+      p The arduino WiFi shield route was too expensive and the dimesions of the whole device was pretty large. We wanted something more compact. The standalone Esp8266 module only exposed 2 or 3 of its GPIO pins which was a shame since it was really cheap. The NodeMCU on the other hand not only has the Esp8266,, but it aslo exposes its pins and has an on-board voltage regulator along with a mini usb interface. Its small and can run arduino code on it. There are several tutorials to do this online and its really simple. Just make sure that you have the 1.6.5 version of the arduino IDE or it wont work. 
+       
+      h3 Setup
+      p So the plan was to have the NodeMCU connected to the router(gateway) through WiFi. The code on the NodeMCU was uploaded throught the Arduino's IDE and it was pretty much the same as the first step (using the LED and the temperature sensor). Instead of switching state of the LED, we switched state of a relay. The realy itself required 5V to run and needed a 5V trigger Voltage. It was latching so we had to give continuous power to it to open the relay which was a shame. The NodeMCU's GPIO pins can only give a 3.3V output, hence we required a logic level converter that converted 3.3V to 5V. Pin 7 which corresponds to pin 13 on the arduino, was connected to the relay's trigger. We used a 8 AA battery pack to to power the whole mechanism and used a voltage divider to power the relay and NodeMCU with 5 volts. The NodeMCU has an onboard 5v to 3.3V voltage divider so we can just give the NodeMCU 5v. 
+
+      h3 High Voltage handling
+      p In order to not damage the coffe machine, we got our hands on an extension wire with 3 plug inputs. We opened the extension and connected its live and ground wires to the relay such that when the relay will be active low, the current would flow through the extension. This was a high voltage current (225V-230V) coming directly from the power socket in the house. So we had to be absolutely sure that everything we are doing is right in order not to blow up something. We made use of a multimeter to be absolutely sure that there are no short circuits or some problems before connecting our system to the power socket. The coffee machine's plug was put in the extension and the extension was connected to the power socket.
+
+      .detail-img
+        img.img-responsive(src='/img/home_automation_step1_img_1.png')
+      p
+      | The above screen-shot is from the ultra-simple front-end (it is still responsive). It has two buttons to turn on and off the LED. It also shows the current temperature and the time. The temperature value is updated every 5 seconds in this prototype. The real stuff is happening at the server and the broker where all data is being thrown around. A breadboard setup of the simple LED and temperature sensor is shown below.
+      .detail-img
+        img.img-responsive(src='/img/home_automation_step1_img_2.png')
+      p
+      | The LED is yellow and does not require any resistor. If this was a red LED, you are supposed to use a resistor otherwise it will work for 2-3 seconds and it will never work again. The LM-35 temperature sensor was used as its dirt cheap and is very responsive for its size and price. Both components were intentionally installed close to each other so that when the LED is turned on from the browser, the temperature sensor value will increase(because of the heat generated from the LED). This was done so that we don't have to touch the sensor every time in order for the temperature reading to change.
+      
+
+      h3 Results
+      p
+      | When you press the 'ON' button on the web page, you fire up a jQuery event 'click' which emits a socket.io event called 'led:on'. The server is programmed to listen to the event. So the server publishes out a message on a topic called 'led:on'. The broker which is running on the raspberry pi as well gets this publish request and publishes out to every device connected to it. The arduino is subscribed to this topic and upon getting a message on this topic, it sets the digital state of pin 6 to HIGH. These are the basics of using a web server, socket.io, MQTT and arduino together to control devices connected to the arduino from the browser. One thing to notice is that socket.io events and MQTT publications can hold real time data with them, for example, the temperature values. So you can pass data around with these techniques, which is essential in any home automation system.
+      include ./partials/_work_detail_end
+  script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
+  include ./partials/_js
