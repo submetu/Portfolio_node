@@ -66,7 +66,7 @@ gulp.task('cssPhotos',function(){
 });
 
 gulp.task('compressImages',function(){
-	gulp.src('public/img/mac.jpg')
+	gulp.src(['public/img/IMG_1503.jpeg','public/img/contact-img.jpg'])
         .pipe(imagemin())
         .pipe(gulp.dest('public/img'));
 });
