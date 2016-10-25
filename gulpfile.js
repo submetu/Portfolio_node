@@ -1,7 +1,8 @@
 var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	minifyCSS = require('gulp-minify-css'),
-	uglify = require('gulp-uglify');
+	uglify = require('gulp-uglify'),
+	imagemin = require('gulp-imagemin');;
 
 gulp.task('jsReady',function(){
 	gulp.src(['public/js/jquery-3.1.0.min.js',
@@ -62,6 +63,12 @@ gulp.task('cssPhotos',function(){
 	.pipe(concat('cssPhotos.css'))
 	.pipe(minifyCSS())
 	.pipe(gulp.dest('public/css'));
+});
+
+gulp.task('compressImages',function(){
+	gulp.src('public/img/mac.jpg')
+        .pipe(imagemin())
+        .pipe(gulp.dest('public/img'));
 });
 
 gulp.task('default',['jsReady','cssHome','cssAbout','cssContact','cssWork','cssPhotos'],function(){
