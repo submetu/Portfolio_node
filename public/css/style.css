@@ -144,7 +144,14 @@ body{
 .work-with-me a img:active{
     transform:rotate(90deg);
 }
-
+.modal-title {
+  color:#666666;
+  font-weight: bold;
+  font-size:2em;
+}
+#reset{
+    margin-right: 2%;
+}
 /*FOOTER*/
 footer{
     text-align: center;

@@ -39,6 +39,11 @@ $('.view.view-tenth').click(function(){
     } 
 });
 
+$('#reset').on('click',function(){
+    $('#Email').val("");
+    $('#message').val("");
+});
+
 
 
 
