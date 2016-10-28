@@ -44,9 +44,38 @@ block content
         img(src='img/down-arrow_black.svg')
   #work-with-me.work-with-me
     h1 Give working with me a try
-    h5
-      a(href='mailto:hire@subhannaeem.com') hire@subhannaeem.com
-    a(href='mailto:hire@subhannaeem.com')
+    #myModalNorm.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+      .modal-dialog
+        .modal-content
+          // Modal Header
+          .modal-header
+            button.close(type='button', data-dismiss='modal')
+              span(aria-hidden='true') 
+              span.sr-only Close
+            h4#myModalLabel.modal-title
+              | Send me an email
+          // Modal Body
+          .modal-body
+            form#email-form(role='form' method="POST" action="/emailPost")
+              .form-group
+                label(for='Email') Your Email address
+                input#Email.form-control(type='email', placeholder='Enter your email address' required="true" name="email")
+              .form-group
+                label(for='message') Your Message
+                textarea#message.form-control(rows='5', placeholder='Enter your message here' required="true" name="message")
+              button.btn.btn-info(type='button')#reset  Reset 
+              button.btn.btn-success(type='submit') Send
+            p#sentMessageDialogue.bg-success.lead.text-center Message sent! 
+            p#cantSentMessageDialogue.bg-danger.lead.text-center Oops, something went wrong!   
+          // Modal Footer
+          .modal-footer
+            button.btn.btn-danger(type='button', data-dismiss='modal')
+              | Go back
+            p.text-left.small.text-muted *Your email will be kept private and no spam will be sent to it
+
+    //- a(href='mailto:hire@subhannaeem.com') hire@subhannaeem.com
+    //- a(href='mailto:hire@subhannaeem.com')
+    a#atSign(href='', data-toggle='modal', data-target='#myModalNorm')
       img(src='img/clipart-email-icon-white-on-black-9YBPv3-clipart.png')
   include ./partials/_js
 

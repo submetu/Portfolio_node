@@ -39,6 +39,37 @@ $('.view.view-tenth').click(function(){
     } 
 });
 
+//EMAIL FORM
+$('#atSign').on('click',function(){
+    $('form').show();
+    $('#sentMessageDialogue').css('display','none');
+    $('#cantSentMessageDialogue').css('display','none');
+    $('#Email').val("");
+    $('#message').val("");
+});
 
 
+$('#email-form').on('submit',function(event){
+    event.preventDefault();
+    $('button').addClass('disabled');
+    $('#Email,#message').attr('disabled','true');
+    var email = $('#Email').val();
+    var message = $('#message').val();
+    $.post('http://localhost/emailPost',{email:email,message:message},function(data){
+        $('form').hide();
+        $('button').removeClass('disabled');
+        $('#Email,#message').removeAttr('disabled');
+        $('#sentMessageDialogue').css('display','block');
+        
+    }).fail(function(response) {
+        $('button').removeClass('disabled');
+        $('#Email,#message').removeAttr('disabled');
+        $('#cantSentMessageDialogue').css('display','block');
+    });
+});
+
+$('#reset').on('click',function(){
+    $('#Email').val("");
+    $('#message').val("");
+});
 
