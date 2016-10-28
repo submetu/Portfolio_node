@@ -71,6 +71,3 @@ $('#reset').on('click',function(){
     $('#Email').val("");
     $('#message').val("");
 });
-
-
-

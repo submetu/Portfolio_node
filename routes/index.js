@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
 var nconf = require('nconf');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express',path:req.path });
@@ -39,4 +40,5 @@ router.post('/emailPost',function(req,res,next){
 	     }
 	});
 });
+
 module.exports = router;
