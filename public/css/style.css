@@ -149,6 +149,10 @@ body{
   font-weight: bold;
   font-size:2em;
 }
+#sentMessageDialogue,#cantSentMessageDialogue{
+    display:none;
+    margin-top:4%;
+}
 #reset{
     margin-right: 2%;
 }
