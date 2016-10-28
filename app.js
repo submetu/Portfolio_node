@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var nconf = require('nconf');
 
 var home = require('./routes/index');
 var work = require('./routes/work');
@@ -22,6 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+nconf.argv().env().file({ file: './conf.json' });
 
 app.use('/', home);
 app.use('/work', work);
