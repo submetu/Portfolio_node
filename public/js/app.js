@@ -54,7 +54,7 @@ $('#email-form').on('submit',function(event){
     $('#Email,#message').attr('disabled','true');
     var email = $('#Email').val();
     var message = $('#message').val();
-    $.post('http://localhost/emailPost',{email:email,message:message},function(data){
+    $.post('http://subhannaeem/emailPost',{email:email,message:message},function(data){
         $('form').hide();
         $('button').removeClass('disabled');
         $('#Email,#message').removeAttr('disabled');
