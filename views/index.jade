@@ -60,11 +60,12 @@ block content
               .form-group
                 label(for='Email') Your Email address
                 input#Email.form-control(type='email', placeholder='Enter your email address' required="true" name="email")
+                p.bg-danger.small#Email-error
               .form-group
                 label(for='message') Your Message
                 textarea#message.form-control(rows='5', placeholder='Enter your message here' required="true" name="message")
               button.btn.btn-info(type='button')#reset  Reset 
-              button.btn.btn-success(type='submit') Send
+              button.btn.btn-success(type='submit')#send Send
             p#sentMessageDialogue.bg-success.lead.text-center Message sent! 
             p#cantSentMessageDialogue.bg-danger.lead.text-center Oops, something went wrong!   
           // Modal Footer

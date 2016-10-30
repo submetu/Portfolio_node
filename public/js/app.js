@@ -39,10 +39,29 @@ $('.view.view-tenth').click(function(){
     } 
 });
 //EMAIL FORM
+
+function validateEmail(email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+} 
+
+$('#Email').on('input',function(){
+    console.log('hi');
+    if(validateEmail($(this).val())){
+        $('#send').removeClass('disabled');
+        $('#Email-error').text("");
+    }
+    else{
+        $('#send').addClass('disabled');
+        $('#Email-error').text('Please enter a valid email');
+    }
+});
+
 $('#atSign').on('click',function(){
     $('form').show();
     $('#sentMessageDialogue').css('display','none');
     $('#cantSentMessageDialogue').css('display','none');
+    $('#send').addClass('disabled');
     $('#Email').val("");
     $('#message').val("");
 });
