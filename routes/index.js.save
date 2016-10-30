@@ -17,27 +17,22 @@ router.get('/photos',function(req,res,next){
 	res.render('photos', { title: 'Express', path: req.path });
 });
 router.post('/emailPost',function(req,res,next){
-	
 	var user_name = nconf.get('user_name');
 	var password = nconf.get('password');
 	var smtpTransport = nodemailer.createTransport("SMTP",{
 	    service: "Gmail",
 	    auth: {
-	        user:user_name,
-	        pass: password
+	        user: "sub.metu",
+	        pass: "$Ubh@nn@eem7788007"
 	    }
 	});
-
 	var mailOptions = {
 		to : 'sub.metu@gmail.com',
-		from : req.body.email,
-		subject:req.body.email,
+		subject : req.body.email,
 		text : req.body.message
 	}
-	 console.log(mailOptions);
     smtpTransport.sendMail(mailOptions, function(error, response){
 	     if(error){
-		console.log(error.stack);
 	         res.sendStatus(400);
 	     }
 	     else{
@@ -45,8 +40,9 @@ router.post('/emailPost',function(req,res,next){
 	     }
 	});
 });
-// router.post('/test',function(req,res,next){
-// 	res.end('Test suceeded');
-// });
-module.exports = router;
 
+router.post('/test',function(req,res,next){
+	res.end('Test suceeded');
+});
+
+module.exports = router;ˇˇ†
