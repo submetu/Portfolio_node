@@ -48,11 +48,11 @@ function validateEmail(email) {
 $('#Email').on('input',function(){
     console.log('hi');
     if(validateEmail($(this).val())){
-        $('#send').removeClass('disabled');
+        $("#send").prop("disabled", false);
         $('#Email-error').text("");
     }
     else{
-        $('#send').addClass('disabled');
+        $("#send").prop("disabled", true);
         $('#Email-error').text('Please enter a valid email');
     }
 });
@@ -61,7 +61,7 @@ $('#atSign').on('click',function(){
     $('form').show();
     $('#sentMessageDialogue').css('display','none');
     $('#cantSentMessageDialogue').css('display','none');
-    $('#send').addClass('disabled');
+    $("#send").prop("disabled", true);
     $('#Email').val("");
     $('#message').val("");
 });
