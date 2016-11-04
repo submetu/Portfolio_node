@@ -25,16 +25,10 @@ block content
       .detail-img
         img.img-responsive(src='/img/home_automation_step1_img_1.png')
       p
-      | The above screen-shot is from the ultra-simple front-end (it is still responsive). It has two buttons to turn on and off the LED. It also shows the current temperature and the time. The temperature value is updated every 5 seconds in this prototype. The real stuff is happening at the server and the broker where all data is being thrown around. A breadboard setup of the simple LED and temperature sensor is shown below.
-      .detail-img
-        img.img-responsive(src='/img/home_automation_step1_img_2.png')
-      p
-      | The LED is yellow and does not require any resistor. If this was a red LED, you are supposed to use a resistor otherwise it will work for 2-3 seconds and it will never work again. The LM-35 temperature sensor was used as its dirt cheap and is very responsive for its size and price. Both components were intentionally installed close to each other so that when the LED is turned on from the browser, the temperature sensor value will increase(because of the heat generated from the LED). This was done so that we don't have to touch the sensor every time in order for the temperature reading to change.
+      | The front-end is the same as before. The ON and OFF button now turn the coffee machine ON and OFF respectively insteal of the LED. The temperature sensor is still connected to the arduino which is connected to the router via ethernet. So now, a NodeMCU-Relay-Coffe Machine system as well as the Temperature Sensor-Arduino system is talking to the Node.Js server via MQTT. This home automation system will be expanded by adding more systems, preferably NodeMCU systems for wireless capabilities. 
       
-
       h3 Results
       p
-      | When you press the 'ON' button on the web page, you fire up a jQuery event 'click' which emits a socket.io event called 'led:on'. The server is programmed to listen to the event. So the server publishes out a message on a topic called 'led:on'. The broker which is running on the raspberry pi as well gets this publish request and publishes out to every device connected to it. The arduino is subscribed to this topic and upon getting a message on this topic, it sets the digital state of pin 6 to HIGH. These are the basics of using a web server, socket.io, MQTT and arduino together to control devices connected to the arduino from the browser. One thing to notice is that socket.io events and MQTT publications can hold real time data with them, for example, the temperature values. So you can pass data around with these techniques, which is essential in any home automation system.
+      | When you press the 'ON' button on the web page, the Coffe machine starts as the relay becomes active low. The opposite happens when the 'OFF' button is pressed on the webpage. The NodeMCU has high ranges going up to 200m with obstacles. The system however is not power efficient. Some future improvements include using a solid-state relay instead of the traditional relay. The power that it consumes is about 150mAh which is alot. The solid-state relay will consume much less than this. Further more the voltage regulator on the NodeMCU also drains power, so in future projects the Esp-8266 can be used as a standalone device using the pins that are needed only. It can be programmed by a FTDI serial to usb programmer. For the batteries, there are many options and an appropriate one will be used depending on the power drain from the system. Obviously the AAA batteries used in this case would not be used. 
       include ./partials/_work_detail_end
-  script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
   include ./partials/_js

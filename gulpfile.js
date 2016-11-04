@@ -10,12 +10,21 @@ gulp.task('jsReady',function(){
 			   'public/jquery_plugins/jquery.textillate.js',
 			   'public/js/bootstrap.min.js',
 			   'public/js/workJS.js',
-			   'public/js/photosJs.js',
 			   'public/js/app.js'])
 	.pipe(concat('concat.js'))
 	.pipe(uglify())
 	.pipe(gulp.dest('public/js'));
 });
+gulp.task('jsPhotos',function(){
+	gulp.src(['public/js/jquery-3.1.0.min.js',
+			  'public/js/bootstrap.min.js',
+			  'public/js/photosJs.js',
+			])
+	.pipe(concat('photosConcat.js'))
+	.pipe(uglify())
+	.pipe(gulp.dest('public/js/'));
+});
+
 //MAIN PAGE
 gulp.task('cssHome',function(){
 	gulp.src(['public/css/bootstrap.min.css',
@@ -71,6 +80,6 @@ gulp.task('compressImages',function(){
         .pipe(gulp.dest('public/img'));
 });
 
-gulp.task('default',['jsReady','cssHome','cssAbout','cssContact','cssWork','cssPhotos'],function(){
+gulp.task('default',['jsReady','jsPhotos','cssHome','cssAbout','cssContact','cssWork','cssPhotos'],function(){
 	console.log("Ready for deployment");
 })

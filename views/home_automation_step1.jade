@@ -37,5 +37,4 @@ block content
       p
       | When you press the 'ON' button on the web page, you fire up a jQuery event 'click' which emits a socket.io event called 'led:on'. The server is programmed to listen to the event. So the server publishes out a message on a topic called 'led:on'. The broker which is running on the raspberry pi as well gets this publish request and publishes out to every device connected to it. The arduino is subscribed to this topic and upon getting a message on this topic, it sets the digital state of pin 6 to HIGH. These are the basics of using a web server, socket.io, MQTT and arduino together to control devices connected to the arduino from the browser. One thing to notice is that socket.io events and MQTT publications can hold real time data with them, for example, the temperature values. So you can pass data around with these techniques, which is essential in any home automation system.
       include ./partials/_work_detail_end
-  script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
   include ./partials/_js
