@@ -19,7 +19,7 @@ html,body{
        height:60px;   /* Height of the footer */
     }
 .contact-contact{
-        margin-top: 10%;
+        margin-top: 6%;
     }
 .contact-contact h1{
     color:#333;
@@ -59,6 +59,9 @@ html,body{
         padding:0 5% 0;
         font-size:1.3em;
 }
+.border{
+    padding:3%;
+}
 .resume,#resume-heading{
     font-size:1.2em;
 }
@@ -88,6 +91,7 @@ html,body{
     }
     .contact-contact h1{
         font-size: 1.5em;
+            margin-bottom:4%;
     }
     .contact-contact h5{
         font-size: 0.8em;
@@ -111,6 +115,9 @@ html,body{
     }
     .navbar .navbar-brand{
         font-size:.6em;
+    }
+    .border{
+        padding:0%;
     }
    
 }
@@ -142,7 +149,10 @@ html,body{
     .resume-img{
         width:15%;
     }
-    
+    .border{
+        padding:0%;
+    }
+        
 }
 @media screen and (min-width:481px) and (max-width:768px){
     
@@ -152,4 +162,5 @@ html,body{
     .resume-img{
         width:10%;
     }
+    
 }

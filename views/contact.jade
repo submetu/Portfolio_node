@@ -3,27 +3,32 @@ extends layout
 block content
   .contact-main
     .container-fluid
-  .contact-contact
-    h1 Contact me right now
-    h5 Expect an immediate reply
-    h4
-      a.addDec.inheritColor(href='mailto:hire@subhannaeem.com') hire@subhannaeem.com
-    h3#resume-heading View my résumé here
-    img.resume-img(src="/img/pdf-logo.png")
-    a.resume(href="/CV.pdf" target="_blank") Résumé
-    h3 Feel free to contact me on my social media accounts down below
-  .social-media-icons
-    ul
-      li
-        a(target='_blank', title='Find me on Facebook', href='https://www.facebook.com/subhan.naeem.9')
-          img(alt='Follow me on Facebook', src='img/Facebook_logo_vector-4.png', border='0')
-      li
-        a(target='_blank', title='Find me on Instagram', href='https://www.instagram.com/n_subhan/')
-          img(alt='follow me on facebook', src='img/Instagram_simple_icon.svg.png', border='0')
-      li
-        a(target='_blank', title='Find me on Linkedin', href='https://www.linkedin.com/in/subhan-naeem-a52b3991')
-          img(alt='follow me on facebook', src='img/linkedin-4096-black.png', border='0')
-      li
-        a(target='_blank', title='Find me on Github', href='https://github.com/submetu/')
-          img(alt='follow me on facebook', src='img/Octicons-mark-github.svg.png', border='0')
+  .container    
+    .row
+      .contact-contact.col-md-6.border
+        h1 Contact me right now
+        h5 Expect an immediate reply
+        h4(style="margin-top:7%")
+          a.addDec.inheritColor(href='mailto:hire@subhannaeem.com') hire@subhannaeem.com
+      .contact-contact.col-md-6.border.clearfix
+        h1 View my résumé here
+        h4(style="margin-top:10%")
+          img.resume-img(src="/img/pdf-logo.png")
+          a.resume(href="/CV.pdf" target="_blank") Résumé
+    .contact-contact
+      h3 Feel free to contact me on my social media accounts down below
+      .social-media-icons
+        ul
+          li
+            a(target='_blank', title='Find me on Facebook', href='https://www.facebook.com/subhan.naeem.9')
+              img(alt='Follow me on Facebook', src='img/Facebook_logo_vector-4.png', border='0')
+          li
+            a(target='_blank', title='Find me on Instagram', href='https://www.instagram.com/n_subhan/')
+              img(alt='follow me on facebook', src='img/Instagram_simple_icon.svg.png', border='0')
+          li
+            a(target='_blank', title='Find me on Linkedin', href='https://www.linkedin.com/in/subhan-naeem-a52b3991')
+              img(alt='follow me on facebook', src='img/linkedin-4096-black.png', border='0')
+          li
+            a(target='_blank', title='Find me on Github', href='https://github.com/submetu/')
+              img(alt='follow me on facebook', src='img/Octicons-mark-github.svg.png', border='0')
   include ./partials/_js
