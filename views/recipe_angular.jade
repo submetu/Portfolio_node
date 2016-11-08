@@ -1,0 +1,164 @@
+extends layout
+
+block content
+  .container.work-detail-main
+    .heading#heading-top
+      h1 My Recipes - SPA
+      h4 
+        a.github(href="https://github.com/submetu/Recipie_Angular" target="_blank") Github Repository
+      h5 Angular.Js Node.Js NeDB
+    .detail
+      p
+      | This is a Simple Single Page Application (SPA) with CRUD capabilities. It allows the user to create, edit, delete and sort recipes according to categories. This web application is responsive. It is connected to an in-memory only datastore or as a persistent datastore. An npm module named NeDB is used that follows the MongoDB collections method, thus it is a NoSQL database.  
+      .detail-img
+        img.img-responsive(src='/img/recipe_angular_img_3.png')
+      .detail-img
+        img.img-responsive(src='/img/recipe_angular_img_4.png')
+      h3 Objectives
+      p
+      | The purpose of this project was to allow users to interact with databases through a single page application. Users have the ability to click on existing recipes in order to edit them as they wish. If a user wants to add a completely new recipe, they can do it. Errors are shown to the users if the entries are incomplete or incorrect. The recipes can be deleted with an alert box popping for confirmation. Each recipe must have a category along with other properties. The recipes can be sorted according to categories on the home page. The image below shows two recipes being sorted according to the category 'Entree'.
+      .detail-img-large
+        img.img-responsive(src='/img/recipe_angular_img_2.png')
+      h3 Challenges
+      p
+      | The Node REST API provided end points to send GET, POST, PUT and DELETE requests. The Angular code uses the ngResource module in order to send such requests. However, this code was kept in a different service and was required by the main dataService. The dataService which you will see in the second snippet, does all the heavy lifting of the application while the controllers only contain the business logic and some simple event handlers. The main issue with this application was that there were several SELECT elements in the html that were repeating under the attribute 'ng-repeat'. Getting each of their data into the controllers was a challenge at first but it was handled by the help of the two way binding in angularJS and that each element in ng-repeat has its own scope. The trick was to know that you have several variables available inside a 'ng-repeat' div such as '$index'. '$index' was used to keep track of the 'ng-repeat' cycle and 'ng-model' handled the two way binding itself. The following snippet shows one of the controllers named and its business logic. 
+      p
+      pre.prettyprint
+        | (function(){
+        | angular.module(&apos;app&apos;)
+        | .controller(&apos;RecipeDetailController&apos;,[&apos;dataService&apos;,&apos;$location&apos;,&apos;$routeParams&apos;,function(dataService,$location,$routeParams){
+        | var self = this;
+        | //If the route was &apos;/add&apos; then make the self.recipe object empty.
+        | //If the route was &apos;/edit/&apos; then get the id and make a request to the server to get that recipe and put it into self.recipe
+        | self.recipe = ($location.path()===&apos;/add&apos;) ? {} : dataService.getRecipe($routeParams.id) ;
+        | //get all the categories and assign them to self.categories
+        | dataService.getCategories(function(categories){
+        | self.categories = categories;
+        | });
+        | //GET ALL THE INGREDIENTS IN ALL THE RECIPES AND SET THEM TO self.ingredients
+        | dataService.getIngredients(function(ingredients){
+        | self.ingredients = ingredients;
+        | });
+        | //WEHEN THE USER CLICKS THE CANCEL BUTTON TAKE THEM TO THE MAIN PAGE
+        | self.cancelButton = function(){
+        | $location.path(&apos;/&apos;);
+        | };
+        | //Add an ingredient row when Add ingredient button is pressed
+        | self.addIngredient = function(){
+        | var ingredientObject={
+        | foodItem:null,
+        | condition:null,
+        | amount:null
+        | }
+        | self.recipe.ingredients = self.recipe.ingredients || []; //If there is no ingredients array, create an empty array
+        | self.recipe.ingredients.push(ingredientObject);
+        | };
+        | //Add a step row when the Add step button is pressed
+        | self.addStep = function(){
+        | var stepObject={
+        | description:null
+        | }
+        | self.recipe.steps = self.recipe.steps || []; //If there is no steps array, create an empty array
+        | self.recipe.steps.push(stepObject);
+        | };
+        | //Delete the appropriate element from ng-repeat when a delete button is pressed
+        | self.deleteElement = function(array,index){
+        | array.splice(index,1);
+        | };
+        | //save the recipe when the Save Recipe button is pressed and move the user to the main page or give errors if there are
+        | self.saveRecipe = function(recipe){
+        | dataService.saveRecipe(recipe,self,$location);
+        | }
+        | }]);
+        | }());
+      h3 The dataService Service
+       p
+      | The following snippet shows a service named dataService containing the various methods used in the above snippet. This service handles all the http requests to the server and keeps the controllers clean.
+      pre.prettyprint
+        | (function(){
+        | angular.module(&apos;app&apos;)
+        | //Define a service called dataService with dependency of another service named ajaxService
+        | .service(&apos;dataService&apos;,[&apos;ajaxService&apos;,function(ajaxService){
+        | //function to get all recipes
+        | this.getRecipes = function(){
+        | return ajaxService.query();
+        | }
+        | //funciton to get all recipes by category
+        | this.getRecipesByCategory = function(category){
+        | return ajaxService.query({category:category});
+        | };
+        | //function to get a recipe by id
+        | this.getRecipe = function(id){
+        | return ajaxService.get({id:id});
+        | };
+        | //function to get an array of all the ingredients from which we can access properties such as
+        | // footItem, condition and amount
+        | this.getIngredients = function(callback){
+        | return ajaxService.query(function(resp){
+        | var ingredients=[];
+        | for(var i =0;i &lt; resp.length;i++){
+        | for(var j=0; j &lt; resp[i].ingredients.length;j++){
+        | ingredients.push(resp[i].ingredients[j]);
+        | }
+        | }
+        | callback(ingredients);
+        | });
+        | };
+        | //function to get all the categories available
+        | this.getCategories = function(callback){
+        | var categories = []
+        | ajaxService.query(function(resp){
+        | for(var i = 0; i&lt; resp.length;i++){
+        | categories.push(resp[i].category);
+        | }
+        | categories = categories.filter(function(item, pos) {
+        | return categories.indexOf(item) == pos;
+        | })
+        | callback(categories);
+        | });
+        | }
+        | //function to delete a recipe from the database based on id
+        | this.deleteRecipe = function(id,func){
+        | var r = confirm(&quot;Are you sure you want to delete this recipe?&quot;);
+        | if (r == true) {
+        | ajaxService.delete({id:id},function(resp){
+        | func(); //this function is run when the DELETE request was successful
+        | },function(error){
+        | console.log(error)
+        | });
+        | }
+        | }
+        | //function to save a recipe in the database that takes in a the recipe to be saved and self and $location parameters
+        | this.saveRecipe = function(recipe,self,$location){
+        | if(recipe._id){ //if the recipe already exists, then make a PUT request to update it
+        | ajaxService.update({id:recipe._id},recipe,function(resp){
+        | $location.path(&apos;/&apos;); //move the user to the homepage
+        | },function(error){
+        | self.errors = error.data.errors; //in case of errors, show them on the screen
+        | });
+        | }
+        | else{ //if the recipe is new, then make a POST request to create a new recipe in the databse
+        | //Create the following variables if they don&apos;t already exist
+        | recipe.description = recipe.description || &quot;&quot;;
+        | recipe.prepTime = recipe.prepTime || 0;
+        | recipe.cookTime = recipe.cookTime || 0;
+        | //make the POST request
+        | ajaxService.save(recipe,function(resp){
+        | $location.path(&apos;/&apos;);
+        | },function(error){
+        | self.errors = error.data.errors;
+        | });
+        | }
+        | }
+        | }]);
+        | }());
+
+      .detail-img-landscape
+        img.img-responsive(src='/img/recipe_angular_img_1.png')
+      
+      h3 Results
+      p
+      | The application is naturally snappy and responsive. Data is persisted because of the NeDB database. With a few additions and tests, this application is deployable and fully usable. However, a simple application like this won't be of much use to anyone. The purpose of this application was to show routing, CRUD capabilities and a fluid user experience in a Single Page Application with a Node.Js backend.  
+      include ./partials/_work_detail_end
+  script(src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js')    
+  include ./partials/_js

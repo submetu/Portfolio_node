@@ -28,6 +28,9 @@ router.get('/:id', function(req, res, next) {
 	if(id === 'twitter_interface'){
 		res.render('twitter_interface',{ title: 'Express', path: req.baseUrl });
 	}
+	if(id === 'recipe_angular'){
+		res.render('recipe_angular',{ title: 'Express', path: req.baseUrl });
+	}
 
 });
 
