@@ -1,17 +1,21 @@
 var $root= $('html, body');
-var $introduction=$('<h1 class="tlt display-2">Hi, I\'m Subhan. I\'m a Maker and a Web Developer</h1>');
-$introduction.prependTo('div.home-main div.container-fluid').hide();
+var $introduction=$('<h1 class="tlt display-2">Hi, I\'m Subhan. I\'m a Maker and a Developer</h1>');
+
 //TEXTILATION
-$(function () {
-    $introduction.show();
+$(document).ready(function(){ 
+$introduction.prependTo('div.home-main div.container-fluid')
     $('.tlt').textillate(
         { in: { 
                 sync: false,
                 delay: 12
               },
+         callback: function () {
+            $introduction.show();
+         }
         }
     );
-})
+}) 
+
 
 $('.home-main a').hide();
 $('.home-main a').fadeIn(2000);
