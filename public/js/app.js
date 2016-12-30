@@ -1,5 +1,5 @@
 var $root= $('html, body');
-var $introduction=$('<h1 class="tlt display-2">Hi, I\'m Subhan. I\'m a Maker and a Developer</h1>');
+var $introduction=$('<h1 class="tlt display-2">Hi, I\'m Subhan. I\'m a developer</h1>');
 
 //TEXTILATION
 $(document).ready(function(){ 
